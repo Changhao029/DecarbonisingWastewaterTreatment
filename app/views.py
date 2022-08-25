@@ -30,7 +30,8 @@ class SearchFilterBackend(BaseFilterBackend):
         query_condition = dict()
         for k, v in request.query_params.dict().items():
             query_condition[k] = v
-        del query_condition["page"]
+        if "page" in query_condition:
+            del query_condition["page"]
         return queryset.filter(**query_condition)
 
 
