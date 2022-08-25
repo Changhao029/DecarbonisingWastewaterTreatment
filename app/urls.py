@@ -20,7 +20,9 @@ from app import views
 
 urlpatterns = [
     re_path('admin/', admin.site.urls),
-    re_path(r'^datatable/(?P<station>\d+)/', views.DataTable.as_view()),
+    re_path(r'^datatable/', views.DataTable.as_view()),
+    # re_path(r'^datatable/(?P<station>\d+)/', views.DataTable.as_view()),
+    re_path(r'^datatable/$', views.DataTable.as_view()),
     re_path(r'^fakedata/$', views.FakeData.as_view()),
 
 ]
