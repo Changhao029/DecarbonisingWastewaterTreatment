@@ -6,7 +6,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from app.models import SensorData
-from app.serializers import SensorDataSerializer, FakeSensorDataSerializer
+from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer
 from app.random_mockup import RandomFakeData
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
@@ -40,6 +40,12 @@ class DataTable(ListAPIView):
     filter_backends = [SearchFilterBackend,]
     serializer_class = SensorDataSerializer
     pagination_class = PageNumberPagination
+
+
+class LineChartView(ListAPIView):
+    serializer_class = LineChartDataSerializer
+    queryset = SensorData.objects.all()
+    filter_backends = [SearchFilterBackend, ]
 
 
 class FakeData(APIView):
