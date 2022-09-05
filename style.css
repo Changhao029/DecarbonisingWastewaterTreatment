@@ -95,7 +95,7 @@ input[type="submit"]:active {
 }
 
 .top:hover {
-  background-color: #7792dd;
+  text-shadow: 2px 2px 5px black;
 }
 
 /* Nav-bar Link styling */
@@ -113,7 +113,7 @@ input[type="submit"]:active {
 }
 
 .navbar-item:hover {
-  background-color: #7792dd;
+  background-color: #53baff;
 }
 
 /* Content */
@@ -135,4 +135,49 @@ input[type="submit"]:active {
   margin: 0;
   padding: 10px;
   background-color: #182344;
+}
+
+.data-display {
+  width: 1600px;
+  height: 700px;
+  border-style: ridge;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.button-container {
+  display: flex;
+  flex-flow: wrap;
+  gap: 25px;
+}
+
+.button {
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+  border-style: none;
+  border-radius: 15px;
+  padding: 45px 80px 45px 80px;
+  box-shadow: 4px 4px 2.5px gray;
+  display: flex;
+}
+
+.button:hover {
+  box-shadow: 2.5px 5px 9px gray;
+}
+
+#overview {
+  background-image: linear-gradient(to right, #7efcfcb4, #53ffff);
+}
+
+#realtime-data {
+  background-image: linear-gradient(to right, #fa8d8dbb, #f75656);
+}
+
+#share-of-gas {
+  background-image: linear-gradient(to right, #965996b2, #923f92);
+}
+
+#at-a-glance {
+  background-image: linear-gradient(to right, #7f7ffab9, #4d4dff);
 }
