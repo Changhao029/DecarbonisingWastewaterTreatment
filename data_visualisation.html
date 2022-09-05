@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Decarbonising Wastewater Treatment</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <!-- Side Navigation Bar -->
+    <div class="navbar">
+      <div class="yes">
+        <a href="#top" class="top"> Data Platform </a>
+        <ul class="navbar-menu">
+          <a href="data_report.html" class="navbar-link">
+            <li
+              class="navbar-item"
+              id="Data Report"
+              onclick="switchToNavbarItem('Data Report')"
+            >
+              Data Report
+            </li>
+          </a>
+          <a href="#Data-Center" class="navbar-link">
+            <li
+              class="navbar-item"
+              id="Data Center"
+              onclick="switchToNavbarItem('Data Center')"
+            >
+              Data Center
+            </li>
+          </a>
+          <a href="#Sharing" class="navbar-link">
+            <li
+              class="navbar-item"
+              id="Sharing"
+              onclick="switchToNavbarItem('Sharing')"
+            >
+              Sharing
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content">
+      <h1 class="section-title">DATA CENTER</h1>
+
+      <div class="inner-content">
+        <div class="button-container">
+          <div class="button" id="overview">GAS EMISSION OVERVIEW</div>
+
+          <div class="button" id="realtime-data">REAL TIME DATA</div>
+
+          <div class="button" id="share-of-gas">SHARE OF EMISSION GAS</div>
+
+          <div class="button" id="at-a-glance">EMISSIONS AT A GLANCE</div>
+        </div>
+
+        <br />
+
+        <div class="data-display">Data</div>
+      </div>
+    </div>
+  </body>
+</html>
