@@ -23,7 +23,7 @@
               Data Report
             </li>
           </a>
-          <a href="#Data-Center" class="navbar-link">
+          <a href="data_visualisation.html" class="navbar-link">
             <li
               class="navbar-item"
               id="Data Center"
@@ -32,6 +32,7 @@
               Data Center
             </li>
           </a>
+          <!-- Change this link to sharing page later -->
           <a href="#Sharing" class="navbar-link">
             <li
               class="navbar-item"
@@ -51,15 +52,25 @@
 
       <div class="inner-content">
         <form>
-          <label for="search-query">Search:</label><br />
+          <label for="search-query">Query:</label>
           <input
             type="text"
             id="search-query"
             name="search-query"
-            placeholder="Search for something.."
+            placeholder="Enter a query..."
+          />
+          <br />
+          <label for="search-query">Refine:</label>
+          <input
+            type="text"
+            id="search-query"
+            name="search-query"
+            placeholder="Refine by..."
           />
           <input type="submit" value="Submit" />
         </form>
+        <br />
+        <div class="data-display">Data</div>
       </div>
     </div>
   </body>
