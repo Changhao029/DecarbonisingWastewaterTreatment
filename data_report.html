@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Decarbonising Wastewater Treatment</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js"></script>
+  </head>
+
+  <body>
+    <!-- Side Navigation Bar -->
+    <div class="navbar">
+      <div class="yes">
+        <a href="#top" class="top"> Data Platform </a>
+        <ul class="navbar-menu">
+          <a href="#Data-Report" class="navbar-link">
+            <li
+              class="navbar-item"
+              id="Data Report"
+              onclick="switchToNavbarItem('Data Report')"
+            >
+              Data Report
+            </li>
+          </a>
+          <a href="#Data-Center" class="navbar-link">
+            <li
+              class="navbar-item"
+              id="Data Center"
+              onclick="switchToNavbarItem('Data Center')"
+            >
+              Data Center
+            </li>
+          </a>
+          <a href="#Sharing" class="navbar-link">
+            <li
+              class="navbar-item"
+              id="Sharing"
+              onclick="switchToNavbarItem('Sharing')"
+            >
+              Sharing
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content">
+      <h1 class="section-title">DATA REPORT</h1>
+
+      <div class="inner-content">
+        <form>
+          <label for="search-query">Search:</label><br />
+          <input
+            type="text"
+            id="search-query"
+            name="search-query"
+            placeholder="Search for something.."
+          />
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

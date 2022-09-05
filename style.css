@@ -47,109 +47,92 @@ input[type="submit"]:active {
 /* Navbar Styling */
 .navbar {
   height: 100%;
-  width: 15%;
+  width: 250px;
   background-color: #182344;
   position: fixed !important;
   z-index: 1;
+  top: 0;
+  left: 0;
 }
 
 .navbar-menu {
   list-style-type: none;
-  margin: -1%;
   padding: 0;
-  width: 100%;
+  width: 250px;
 }
 
 .navbar-item {
   background-color: #182344;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   text-align: center;
-  padding-top: 4%;
-  padding-bottom: 4%;
-  float: left;
-  width: 100%;
-  outline: 0;
-  border: solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 250px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  box-sizing: border-box;
 }
 
 .top {
   display: block;
-  padding: 8px 16px;
-  text-align: left;
+  margin: 0;
+  padding: 0;
   float: none;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 21px;
+  font-weight: bold;
 }
 
 /* Nav-bar TOP Link styling */
+
 .top:link,
 .top:visited {
   color: #e9e9e9;
-  text-align: center;
   text-decoration: none;
-  font-size: 21px;
-  font-weight: bold;
-  padding: 20px 20px 20px 20px;
 }
 
 .top:hover {
-  color: #adadad;
-  text-align: center;
-  text-decoration: none;
-  font-size: 21px;
-  font-weight: bold;
-  padding: 20px 20px 20px 20px;
-}
-
-.top:active {
-  color: #797979;
-  text-align: center;
-  text-decoration: none;
-  font-size: 21px;
-  font-weight: bold;
-  padding: 20px 20px 20px 20px;
+  background-color: #7792dd;
 }
 
 /* Nav-bar Link styling */
 .navbar-link:link,
 .navbar-link:visited {
   color: #b8b8b8;
-  text-align: center;
   text-decoration: none;
-  font-size: 15px;
-  font-weight: bold;
 }
 
 .navbar-link:hover {
-  color: black;
+  color: rgb(76, 59, 107);
   text-align: center;
   text-decoration: none;
-  font-size: 17px;
   font-weight: bold;
-  padding: 20px 20px 20px 20px;
-  text-shadow: 0 0 20px #363636, 0 0 5px #000000;
 }
 
-.navbar-link:active {
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 21px;
-  font-weight: bold;
-  padding: 20px 20px 20px 20px;
+.navbar-item:hover {
+  background-color: #7792dd;
 }
 
 /* Content */
 .content {
-  padding-top: 1px;
-  padding-left: 10px;
-  margin-left: 16%;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 250px;
+}
+
+.inner-content {
+  margin-left: 30px;
+  margin-top: 20px;
 }
 
 .section-title {
-  margin: 0 0 2% -1%;
+  position: sticky;
   color: white;
-  padding: 2%;
-  width: 97%;
+  margin: 0;
+  padding: 10px;
   background-color: #182344;
 }
