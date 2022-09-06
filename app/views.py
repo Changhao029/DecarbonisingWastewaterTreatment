@@ -11,6 +11,9 @@ from app.random_mockup import RandomFakeData
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
 
+from .utils import download_csv
+from django.http import HttpResponse
+
 
 # class DataTable(APIView):
 #
@@ -72,3 +75,8 @@ class FakeData(APIView):
             temp_dict.station = RM.random_station()
             temp_dict.save()
         return Response("successful")
+
+
+def download(request):
+    data = download_csv(request, SensorData.objects.all())
+    return HttpResponse(data, content_type='text/csv')
