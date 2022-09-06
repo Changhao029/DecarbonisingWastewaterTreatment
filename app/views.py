@@ -1,5 +1,6 @@
 import json
 from abc import ABC
+from datetime import datetime
 
 from rest_framework.request import Request
 from rest_framework.generics import ListAPIView
@@ -43,9 +44,30 @@ class DataTable(ListAPIView):
 
 
 class LineChartView(ListAPIView):
-    serializer_class = LineChartDataSerializer
-    queryset = SensorData.objects.all()
-    filter_backends = [SearchFilterBackend, ]
+    # serializer_class = LineChartDataSerializer
+    # queryset = SensorData.objects.all()
+    # filter_backends = [SearchFilterBackend, ]
+    def get(self, request, *args, **kwargs):
+        queryset = SensorData.objects.all().order_by("sensor_datetime")
+        ser = LineChartDataSerializer(instance=queryset, many=True)
+        linechart_dict = dict()
+        linechart_dict["station_num"] = list()
+        linechart_dict["sensor_datetime"] = list()
+        linechart_dict["temperature"] = list()
+        linechart_dict["wind_speed"] = list()
+        linechart_dict["pressure"] = list()
+        linechart_dict["solar_radiation"] = list()
+        for item in ser.data:
+            linechart_dict["station_num"].append(item.get("station_num"))
+            linechart_dict["sensor_datetime"].append(datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
+                                                                                          "%Y-%m-%dT%H:%M:%SZ"))*1000)
+
+            linechart_dict["temperature"].append(item.get("temperature"))
+            linechart_dict["wind_speed"].append(item.get("wind_speed"))
+            linechart_dict["pressure"].append(item.get("pressure"))
+            linechart_dict["solar_radiation"].append(item.get("solar_radiation"))
+
+        return Response(linechart_dict)
 
 
 class FakeData(APIView):
