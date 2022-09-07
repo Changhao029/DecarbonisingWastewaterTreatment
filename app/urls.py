@@ -25,7 +25,7 @@ urlpatterns = [
     re_path(r'^datatable/$', views.DataTable.as_view()),
     re_path(r'^linechart/$', views.LineChartView.as_view()),
     re_path(r'^fakedata/$', views.FakeData.as_view()),
-    re_path(r'^download/$', views.download),
+    re_path(r'^download/', views.Download.as_view()),
 
 
 ]

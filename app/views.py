@@ -99,6 +99,16 @@ class FakeData(APIView):
         return Response("successful")
 
 
-def download(request):
-    data = download_csv(request, SensorData.objects.all())
-    return HttpResponse(data, content_type='text/csv')
+# def download(request):
+#     data = download_csv(request, SensorData.objects.all())
+#     return HttpResponse(data, content_type='text/csv')
+
+class Download(APIView):
+
+    def get(self, request, *args, **kwargs):
+        query_condition = dict()
+        for k, v in request.query_params.dict().items():
+            query_condition[k] = v
+        queryset = SensorData.objects.all().filter(**query_condition)
+        data = download_csv(request, queryset)
+        return HttpResponse(data, content_type='text/csv')
