@@ -23,7 +23,7 @@ select {
   box-sizing: border-box;
 }
 
-input[type="submit"] {
+.query_download {
   background-color: #f7d334;
   color: black;
   padding: 10px 10px;
@@ -34,12 +34,12 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
+.query_download:hover {
   background-color: #e0c02e;
   box-shadow: 0 11px 18px 0 #0000003d, 0 15px 50px 0 #00000030;
 }
 
-input[type="submit"]:active {
+.query_download:active {
   background-color: #9b8420;
   box-shadow: 0 0.5px 10px 0 #00000033, 0 0.5px 10px 0 #00000030;
 }
@@ -118,7 +118,8 @@ input[type="submit"]:active {
 
 /* Content */
 .content {
-  position: fixed;
+  /* position: fixed; */
+  margin-left: 250px;
   width: 100%;
   top: 0;
   left: 250px;
@@ -138,8 +139,8 @@ input[type="submit"]:active {
 }
 
 .data-display {
-  width: 1600px;
-  height: 700px;
+  width: 1500px;
+  /* height: 700px; */
   border-style: ridge;
   border-radius: 8px;
   background-color: white;
@@ -149,6 +150,15 @@ input[type="submit"]:active {
   display: flex;
   flex-flow: wrap;
   gap: 25px;
+}
+
+#data_table {
+  table-layout: fixed;
+  word-break: break-all;
+  word-wrap: break-word;
+  margin: 0;
+  padding: 0;
+
 }
 
 .button {
