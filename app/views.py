@@ -1,4 +1,5 @@
 import json
+import time
 from abc import ABC
 from datetime import datetime
 
@@ -111,4 +112,7 @@ class Download(APIView):
             query_condition[k] = v
         queryset = SensorData.objects.all().filter(**query_condition)
         data = download_csv(request, queryset)
-        return HttpResponse(data, content_type='text/csv')
+        response = HttpResponse(data, content_type='text/csv')
+        file_name = time.strftime("%Y%m%d%H%M%S", time.localtime()) + ".csv"
+        response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file_name)
+        return response
