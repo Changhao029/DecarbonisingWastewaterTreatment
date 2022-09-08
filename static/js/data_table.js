@@ -4,6 +4,7 @@ var pre_page_url = ""
 var next_page_url = ""
 var condition_dict = new Array()
 var condition_str = ""
+var download_query_url = ""
 station_map = {"231824A":1,
                 "231825A":2,
                 "231826A":3,
@@ -125,7 +126,7 @@ function query_data(){
         condition_dict["id"] = query_id
     }
     if (query_station){
-        condition_dict["station"] = query_station
+        condition_dict["station"] = station_map[query_station]
     }
     for (var key in condition_dict){
         condition_str = condition_str + key + "=" + condition_dict[key] + "&"
@@ -171,12 +172,18 @@ function query_data(){
             data_tbody.appendChild(temp_tr)
         }
     });
+
 }
 
-// function download_data(){
-//     console.log(condition_str)
-//     var download_query_url = "http://127.0.0.1:50003/download/?" + condition_str
-//     $.get(download_query_url,function(data_result,status){
-
-//     });
-// }
+function download_data(){
+    console.log(condition_str)
+    download_query_url = "http://127.0.0.1:50003/download/?" + condition_str
+    $.get(download_query_url,function(data_result,status){
+        const aLink = document.createElement('a')
+        aLink.href = download_query_url
+        aLink.setAttribute('download', "test" )
+        document.body.appendChild(aLink)
+        aLink.click()
+        document.body.removeChild(aLink);
+    });
+}

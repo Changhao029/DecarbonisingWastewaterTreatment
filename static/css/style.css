@@ -116,6 +116,11 @@ select {
   background-color: #53baff;
 }
 
+.query_download_div{
+  margin-left: 1300px;
+  margin-bottom: 5px;
+}
+
 /* Content */
 .content {
   /* position: fixed; */

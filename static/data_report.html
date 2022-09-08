@@ -67,7 +67,7 @@
             name="query_id"
             placeholder="query by ID"
           />
-          <br />
+          
           <label for="search-query">station:</label>
           <input
             type="text"
@@ -75,8 +75,11 @@
             name="query_station"
             placeholder="query by station"
           />
-          <input type="button" class="query_download" onclick="query_data()" value="Submit" />
-          <input type="button" class="query_download" onclick="download_data()" value="download" />
+          <div class="query_download_div">
+            <input type="button" class="query_download" onclick="query_data()" value="Query" />
+            <input type="button" class="query_download" onclick="download_data()" value="Download" />
+          </div>
+          
         </form>
         <br />
         <div class="data-display">
