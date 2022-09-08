@@ -1,15 +1,20 @@
 import json
+import time
 from abc import ABC
+from datetime import datetime
 
 from rest_framework.request import Request
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from app.models import SensorData
-from app.serializers import SensorDataSerializer, FakeSensorDataSerializer
+from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer
 from app.random_mockup import RandomFakeData
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
+
+from .utils import download_csv
+from django.http import HttpResponse
 
 
 # class DataTable(APIView):
@@ -42,6 +47,33 @@ class DataTable(ListAPIView):
     pagination_class = PageNumberPagination
 
 
+class LineChartView(ListAPIView):
+    # serializer_class = LineChartDataSerializer
+    # queryset = SensorData.objects.all()
+    # filter_backends = [SearchFilterBackend, ]
+    def get(self, request, *args, **kwargs):
+        queryset = SensorData.objects.all().order_by("sensor_datetime")
+        ser = LineChartDataSerializer(instance=queryset, many=True)
+        linechart_dict = dict()
+        linechart_dict["station_num"] = list()
+        linechart_dict["sensor_datetime"] = list()
+        linechart_dict["temperature"] = list()
+        linechart_dict["wind_speed"] = list()
+        linechart_dict["pressure"] = list()
+        linechart_dict["solar_radiation"] = list()
+        for item in ser.data:
+            linechart_dict["station_num"].append(item.get("station_num"))
+            linechart_dict["sensor_datetime"].append(datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
+                                                                                          "%Y-%m-%dT%H:%M:%SZ"))*1000)
+
+            linechart_dict["temperature"].append(item.get("temperature"))
+            linechart_dict["wind_speed"].append(item.get("wind_speed"))
+            linechart_dict["pressure"].append(item.get("pressure"))
+            linechart_dict["solar_radiation"].append(item.get("solar_radiation"))
+
+        return Response(linechart_dict)
+
+
 class FakeData(APIView):
 
     def post(self, request, *args, **kwargs):
@@ -66,3 +98,21 @@ class FakeData(APIView):
             temp_dict.station = RM.random_station()
             temp_dict.save()
         return Response("successful")
+
+
+# def download(request):
+#     data = download_csv(request, SensorData.objects.all())
+#     return HttpResponse(data, content_type='text/csv')
+
+class Download(APIView):
+
+    def get(self, request, *args, **kwargs):
+        query_condition = dict()
+        for k, v in request.query_params.dict().items():
+            query_condition[k] = v
+        queryset = SensorData.objects.all().filter(**query_condition)
+        data = download_csv(request, queryset)
+        response = HttpResponse(data, content_type='text/csv')
+        file_name = time.strftime("%Y%m%d%H%M%S", time.localtime()) + ".csv"
+        response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file_name)
+        return response
