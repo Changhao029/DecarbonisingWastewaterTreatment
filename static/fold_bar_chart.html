@@ -50,9 +50,9 @@
         }).done(function (data) {
             barchart(data["rainfall"])
         }).fail(function (xhr, status) {
-            console.log('失败: ' + xhr.status + ', 原因: ' + status);
+            console.log('fail: ' + xhr.status + ', result: ' + status);
         }).always(function () {
-            console.log('请求完成: 无论成功或失败都会调用');
+            console.log('Request completed: success or failure');
         });
 
 
