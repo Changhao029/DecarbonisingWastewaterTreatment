@@ -43,7 +43,7 @@ class SearchFilterBackend(BaseFilterBackend):
 
 class DataTable(ListAPIView):
     queryset = SensorData.objects.all()
-    filter_backends = [SearchFilterBackend,]
+    filter_backends = [SearchFilterBackend, ]
     serializer_class = SensorDataSerializer
     pagination_class = PageNumberPagination
 
@@ -65,7 +65,7 @@ class LineChartView(ListAPIView):
         for item in ser.data:
             linechart_dict["station_num"].append(item.get("station_num"))
             linechart_dict["sensor_datetime"].append(datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
-                                                                                          "%Y-%m-%dT%H:%M:%SZ"))*1000)
+                                                                                          "%Y-%m-%dT%H:%M:%SZ")) * 1000)
 
             linechart_dict["temperature"].append(item.get("temperature"))
             linechart_dict["wind_speed"].append(item.get("wind_speed"))
@@ -81,8 +81,8 @@ class BarChartView(APIView):
         queryset = SensorData.objects.all()
         ser = BarChartDataSerializer(instance=queryset, many=True)
         barchart_dict = {
-            "rainfall":[item.get("rainfall") for item in ser.data],
-            "humidity":[item.get("humidity") for item in ser.data],
+            "rainfall": [float(item.get("rainfall")) for item in ser.data],
+            "humidity": [float(item.get("humidity")) for item in ser.data],
         }
         return Response(barchart_dict)
 
@@ -92,10 +92,6 @@ class BarChartView(APIView):
 #     def get(self, request, *arg, **kwargs):
 #         queryset = SensorData.objects.all()
 #         serializer_class = BarChartDataSerializer
-
-
-
-
 
 
 class FakeData(APIView):
