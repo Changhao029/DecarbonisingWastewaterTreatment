@@ -19,3 +19,24 @@ const switchToNavbarItem = (navItem) => {
 
     /* Handle any backend loading here */
 }
+
+function displayChart(tp){
+    var url;
+    if (tp == 'foldLineChart'){
+        url = "fold_line_chart.html"
+    }
+    $.ajax({   
+        url: url,
+        data:'{}',
+        type: 'post',
+        dataType: 'text',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data){                           
+            if (data) {           
+                var zhi=$(data).find("container");
+                $("#display_chart").html(zhi);                             
+            }
+        }
+    });
+
+}
