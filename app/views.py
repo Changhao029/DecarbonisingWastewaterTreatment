@@ -80,7 +80,12 @@ class BarChartView(APIView):
     def get(self, request, *arg, **kwargs):
         queryset = SensorData.objects.all()
         ser = BarChartDataSerializer(instance=queryset, many=True)
-        return Response(ser.data)
+        barchart_dict = {
+            "rainfall":[item.get("rainfall") for item in ser.data],
+            "humidity":[item.get("humidity") for item in ser.data],
+        }
+        return Response(barchart_dict)
+
 
 # class BarChartView(ListAPIView):
 #
