@@ -8,7 +8,8 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from app.models import SensorData
-from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer
+from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer, \
+    BarChartDataSerializer
 from app.random_mockup import RandomFakeData
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
@@ -72,6 +73,24 @@ class LineChartView(ListAPIView):
             linechart_dict["solar_radiation"].append(item.get("solar_radiation"))
 
         return Response(linechart_dict)
+
+
+class BarChartView(APIView):
+
+    def get(self, request, *arg, **kwargs):
+        queryset = SensorData.objects.all()
+        ser = BarChartDataSerializer(instance=queryset, many=True)
+        return Response(ser.data)
+
+# class BarChartView(ListAPIView):
+#
+#     def get(self, request, *arg, **kwargs):
+#         queryset = SensorData.objects.all()
+#         serializer_class = BarChartDataSerializer
+
+
+
+
 
 
 class FakeData(APIView):
