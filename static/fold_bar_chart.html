@@ -5,96 +5,105 @@
     <title>bar histogram</title></head>
 <script src="js/echarts.min.js"></script>
 <script src="js/ecStat.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
 <body>
 <div id="histogram" style="width: 1400px;height:800px;"></div>
 </body>
 
 <script>
 
-
-    function success(text) {
+/*    function success(text) {
         var dict = JSON.parse(text);
-        console.log(dict["rainfall"].slice(0,31))
-        barchart(dict["rainfall"].slice(0,31))
-
+        console.log(dict["rainfall"])
+        barchart(dict["rainfall"])
     }
 
-    function fail(code) {
-        console.log("fail")
-    }
-
-    var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象
-
-    request.onreadystatechange = function () { // 状态发生变化时，函数被回调
-        if (request.readyState === 4) { // 成功完成
-            // 判断响应结果:
-            if (request.status === 200) {
-                // 成功，通过responseText拿到响应的文本:
-                return success(request.responseText);
-            } else {
-                // 失败，根据响应码判断失败原因:
-                return fail(request.status);
+            function fail(code) {
+                console.log("fail")
             }
-        } else {
-            // HTTP请求还在继续...
-        }
-    }
 
-    // 发送请求:
-    request.open('GET', 'http://127.0.0.1:8000/barchart/');
-    request.send();
+                var request = new XMLHttpRequest(); // 新建XMLHttpRequest对象
 
-    alert('请求已发送，请等待响应...');
+                request.onreadystatechange = function () { // 状态发生变化时，函数被回调
+                    if (request.readyState === 4) { // 成功完成
+                        // 判断响应结果:
+                        if (request.status === 200) {
+                            // 成功，通过responseText拿到响应的文本:
+                            return success(request.responseText);
+                        } else {
+                            // 失败，根据响应码判断失败原因:
+                            return fail(request.status);
+                        }
+                    } else {
+                        // HTTP请求还在继续...
+                    }
+                }
 
+                    // 发送请求:
+                    request.open('GET', 'http://127.0.0.1:8000/barchart/');
+                    request.send();
 
-    function barchart(girth) {
-        var histogramChart = echarts.init(document.getElementById('histogram'));
-        var bins = ecStat.histogram(girth);
-        var interval;
-        var min = Infinity;
-        var max = -Infinity;
-        var data = echarts.util.map(bins.data, function (item, index) {
-            var x0 = bins.bins[index].x0;
-            var x1 = bins.bins[index].x1;
-            interval = x1 - x0;
-            min = Math.min(min, x0);
-            max = Math.max(max, x1);
-            return [x0, x1, item[1]];
+                    alert('请求已发送，请等待响应...'); */
+
+        $.ajax('http://127.0.0.1:8000/barchart', {
+            dataType: 'json'
+        }).done(function (data) {
+            barchart(data["rainfall"])
+        }).fail(function (xhr, status) {
+            console.log('失败: ' + xhr.status + ', 原因: ' + status);
+        }).always(function () {
+            console.log('请求完成: 无论成功或失败都会调用');
         });
 
-        function renderItem(params, api) {
-            var yValue = api.value(2);
-            var start = api.coord([api.value(0), yValue]);
-            var size = api.size([api.value(1) - api.value(0), yValue]);
-            var style = api.style();
-            return {
-                type: 'rect',
-                shape: {x: start[0] + 1, y: start[1], width: size[0] - 2, height: size[1]},
-                style: style
-            };
-        }
 
-        option = {
-            title: {
-                text: 'Girths of Black Cherry Trees',
-                subtext: 'By ecStat.histogram',
-                sublink: 'https://github.com/ecomfe/echarts-stat',
-                left: 'center',
-                top: 10
-            },
-            color: ['rgb(25, 183, 207)'],
-            grid: {top: 80, containLabel: true},
-            xAxis: [{type: 'value', min: min, max: max, interval: interval}],
-            yAxis: [{type: 'value',}],
-            series: [{
-                name: 'height',
-                type: 'custom',
-                renderItem: renderItem,
-                label: {show: true, position: 'insideTop'},
-                encode: {x: [0, 1], y: 2, tooltip: 2, label: 2}, data: data
-            }]
-        };
-        histogramChart.setOption(option)
-    }
+        function barchart(girth) {
+            var histogramChart = echarts.init(document.getElementById('histogram'));
+            var bins = ecStat.histogram(girth);
+            var interval;
+            var min = Infinity;
+            var max = -Infinity;
+            var data = echarts.util.map(bins.data, function (item, index) {
+                var x0 = bins.bins[index].x0;
+                var x1 = bins.bins[index].x1;
+                interval = x1 - x0;
+                min = Math.min(min, x0);
+                max = Math.max(max, x1);
+                return [x0, x1, item[1]];
+            });
+
+            function renderItem(params, api) {
+                var yValue = api.value(2);
+                var start = api.coord([api.value(0), yValue]);
+                var size = api.size([api.value(1) - api.value(0), yValue]);
+                var style = api.style();
+                return {
+                    type: 'rect',
+                    shape: {x: start[0] + 1, y: start[1], width: size[0] - 2, height: size[1]},
+                    style: style
+                };
+            }
+
+            option = {
+                title: {
+                    text: 'Girths of Black Cherry Trees',
+                    subtext: 'By ecStat.histogram',
+                    sublink: 'https://github.com/ecomfe/echarts-stat',
+                    left: 'center',
+                    top: 10
+                },
+                color: ['rgb(25, 183, 207)'],
+                grid: {top: 80, containLabel: true},
+                xAxis: [{type: 'value', min: min, max: max, interval: interval}],
+                yAxis: [{type: 'value',}],
+                series: [{
+                    name: 'height',
+                    type: 'custom',
+                    renderItem: renderItem,
+                    label: {show: true, position: 'insideTop'},
+                    encode: {x: [0, 1], y: 2, tooltip: 2, label: 2}, data: data
+                }]
+            };
+            histogramChart.setOption(option)
+        }
 </script>
 </html>
