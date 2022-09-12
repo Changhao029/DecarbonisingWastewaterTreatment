@@ -8,7 +8,8 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from app.models import SensorData
-from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer
+from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer, \
+    BarChartDataSerializer
 from app.random_mockup import RandomFakeData
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
@@ -42,7 +43,7 @@ class SearchFilterBackend(BaseFilterBackend):
 
 class DataTable(ListAPIView):
     queryset = SensorData.objects.all()
-    filter_backends = [SearchFilterBackend,]
+    filter_backends = [SearchFilterBackend, ]
     serializer_class = SensorDataSerializer
     pagination_class = PageNumberPagination
 
@@ -64,7 +65,7 @@ class LineChartView(ListAPIView):
         for item in ser.data:
             linechart_dict["station_num"].append(item.get("station_num"))
             linechart_dict["sensor_datetime"].append(datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
-                                                                                          "%Y-%m-%dT%H:%M:%SZ"))*1000)
+                                                                                          "%Y-%m-%dT%H:%M:%SZ")) * 1000)
 
             linechart_dict["temperature"].append(item.get("temperature"))
             linechart_dict["wind_speed"].append(item.get("wind_speed"))
@@ -72,6 +73,25 @@ class LineChartView(ListAPIView):
             linechart_dict["solar_radiation"].append(item.get("solar_radiation"))
 
         return Response(linechart_dict)
+
+
+class BarChartView(APIView):
+
+    def get(self, request, *arg, **kwargs):
+        queryset = SensorData.objects.all()
+        ser = BarChartDataSerializer(instance=queryset, many=True)
+        barchart_dict = {
+            "rainfall": [float(item.get("rainfall")) for item in ser.data],
+            "humidity": [float(item.get("humidity")) for item in ser.data],
+        }
+        return Response(barchart_dict)
+
+
+# class BarChartView(ListAPIView):
+#
+#     def get(self, request, *arg, **kwargs):
+#         queryset = SensorData.objects.all()
+#         serializer_class = BarChartDataSerializer
 
 
 class FakeData(APIView):
