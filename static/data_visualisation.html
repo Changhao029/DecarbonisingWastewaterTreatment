@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Decarbonising Wastewater Treatment</title>
     <link href="css/style.css" rel="stylesheet" />
+    <link href="css/visualisation.css" rel="stylesheet"/>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -85,8 +86,31 @@
 
         <br />
 
-        <div class="data-display">Data</div>
+        <div class="data-display">
+          <div id="chart1">
+            <div id="container1"></div>
+          </div>
+          <div id="chart2">
+            <div id="container2"></div>
+          </div>
+          <div id="chart3">
+            <div id="container3"></div>
+          </div>
+          <div id="chart4">
+            <div id="container4"></div>
+          </div>
+          <div id="chart5">
+            <div id="container5"></div>
+          </div>
+          <div id="chart6">
+            <div id="container6"></div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
 </html>
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+<script type="text/javascript" src="js/linechart.js"></script>

@@ -126,7 +126,7 @@ function query_data(){
         condition_dict["id"] = query_id
     }
     if (query_station){
-        condition_dict["station"] = station_map[query_station] 
+        condition_dict["station"] = station_map[query_station]
     }
     for (var key in condition_dict){
         condition_str = condition_str + key + "=" + condition_dict[key] + "&"
@@ -184,6 +184,7 @@ function download_data(){
         aLink.setAttribute('download', "test" )
         document.body.appendChild(aLink)
         aLink.click()
-        document.body.removeChild(aLink); 
+        document.body.removeChild(aLink);
+
     });
 }
