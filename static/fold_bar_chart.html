@@ -48,6 +48,7 @@
         $.ajax('http://127.0.0.1:8000/barchart', {
             dataType: 'json'
         }).done(function (data) {
+            console.log(data)
             barchart(data["rainfall"])
         }).fail(function (xhr, status) {
             console.log('fail: ' + xhr.status + ', result: ' + status);
