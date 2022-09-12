@@ -28,3 +28,9 @@ class LineChartDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = SensorData
         fields = ["station_num", "sensor_datetime", "temperature", "wind_speed", "pressure", "solar_radiation"]
+
+
+class BarChartDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SensorData
+        fields = ["rainfall", "humidity"]
