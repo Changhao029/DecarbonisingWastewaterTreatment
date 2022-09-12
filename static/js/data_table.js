@@ -185,5 +185,6 @@ function download_data(){
         document.body.appendChild(aLink)
         aLink.click()
         document.body.removeChild(aLink);
+
     });
 }
