@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <title>Decarbonising Wastewater Treatment</title>
     <link href="css/style.css" rel="stylesheet" />
+    <link href="css/visualisation.css" rel="stylesheet"/>
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -14,7 +15,6 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <script src="js/script.js"></script>
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
   </head>
 
   <body>
@@ -65,29 +65,52 @@
         <div class="button-container">
           <div class="button" id="overview">
             <span class="material-symbols-outlined"> insert_chart </span> &nbsp;
-            <a type="button" onclick="displayChart('histogramC')">GAS EMISSION OVERVIEW</a>
+            GAS EMISSION OVERVIEW
           </div>
 
           <div class="button" id="realtime-data">
             <span class="material-symbols-outlined"> query_stats </span> &nbsp;
-            <a type="button" onclick="displayChart('foldLineChart')">REAL TIME DATA</a>
+            REAL TIME DATA
           </div>
 
           <div class="button" id="share-of-gas">
             <span class="material-symbols-outlined"> pie_chart </span> &nbsp;
-            <a type="button" onclick="displayChart('pie_chart')">SHARE OF EMISSION GAS</a>
+            SHARE OF EMISSION GAS
           </div>
 
           <div class="button" id="at-a-glance">
             <span class="material-symbols-outlined"> preview </span> &nbsp;
-            <a type="button" onclick="displayChart('preview_chart')">EMISSIONS AT A GLANCE</a>
+            EMISSIONS AT A GLANCE
           </div>
         </div>
 
         <br />
 
-        <div class="data-display" id="display_chart"></div>
+        <div class="data-display">
+          <div id="chart1">
+            <div id="container1"></div>
+          </div>
+          <div id="chart2">
+            <div id="container2"></div>
+          </div>
+          <div id="chart3">
+            <div id="container3"></div>
+          </div>
+          <div id="chart4">
+            <div id="container4"></div>
+          </div>
+          <div id="chart5">
+            <div id="container5"></div>
+          </div>
+          <div id="chart6">
+            <div id="container6"></div>
+          </div>
+        </div>
       </div>
     </div>
   </body>
 </html>
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+<script type="text/javascript" src="js/linechart.js"></script>
