@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $.get('http://127.0.0.1:8000/barchart', function (data) {
+    $.get('http://127.0.0.1:50003/barchart', function (data) {
         barchart(data['rainfall'],"container3","Rainfall Barchart")
         barchart(data['humidity'],"container4","Humidity Barchart")
     })
