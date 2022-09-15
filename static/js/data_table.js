@@ -5,11 +5,7 @@ var next_page_url = ""
 var condition_dict = new Array()
 var condition_str = ""
 var download_query_url = ""
-station_map = {"231824A":1,
-                "231825A":2,
-                "231826A":3,
-                "231827A":4,
-                "231828A":5}
+
 
 $(document).ready(function(){
     current_page = 1
@@ -39,7 +35,7 @@ $(document).ready(function(){
                                 + '<td>' + temp_data[i]["pressure_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["solar_radiation"] + '</td>'
                                 + '<td>' + temp_data[i]["solar_radiation_quality"] + '</td>'
-                                + '<td>' + temp_data[i]["station_num"] + '</td>';
+                                + '<td>' + temp_data[i]["station"] + '</td>';
             data_tbody.appendChild(temp_tr)
         }
     });
@@ -126,7 +122,7 @@ function query_data(){
         condition_dict["id"] = query_id
     }
     if (query_station){
-        condition_dict["station"] = station_map[query_station] 
+        condition_dict["station"] = query_station
     }
     for (var key in condition_dict){
         condition_str = condition_str + key + "=" + condition_dict[key] + "&"
@@ -168,7 +164,7 @@ function query_data(){
                                 + '<td>' + temp_data[i]["pressure_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["solar_radiation"] + '</td>'
                                 + '<td>' + temp_data[i]["solar_radiation_quality"] + '</td>'
-                                + '<td>' + temp_data[i]["station_num"] + '</td>';
+                                + '<td>' + temp_data[i]["station"] + '</td>';
             data_tbody.appendChild(temp_tr)
         }
     });
@@ -184,6 +180,7 @@ function download_data(){
         aLink.setAttribute('download', "test" )
         document.body.appendChild(aLink)
         aLink.click()
-        document.body.removeChild(aLink); 
+        document.body.removeChild(aLink);
+
     });
 }
