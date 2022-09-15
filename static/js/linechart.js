@@ -57,31 +57,31 @@ $(document).ready(function(){
         let solar_radiation_station5 = []
         // console.log(data[0])
         for (let i = 0; i < data_result["sensor_datetime"].length; i++) {
-            if (data_result["station_num"][i] == "231824A"){
-                temperature_station1.push([data_result["sensor_datetime"][i], data_result["temperature"][i],  data_result["station_num"][i]]);
-                windspeed_station1.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station_num"][i]]);
-                pressure_station1.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station_num"][i]]);
-                solar_radiation_station1.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station_num"][i]]);
-            }else if(data_result["station_num"][i] == "231825A"){
-                temperature_station2.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station_num"][i]]);
-                windspeed_station2.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station_num"][i]]);
-                pressure_station2.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station_num"][i]]);
-                solar_radiation_station2.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station_num"][i]]);
-            }else if(data_result["station_num"][i] == "231826A"){
-                temperature_station3.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station_num"][i]]);
-                windspeed_station3.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station_num"][i]]);
-                pressure_station3.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station_num"][i]]);
-                solar_radiation_station3.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station_num"][i]]);
-            }else if(data_result["station_num"][i] == "231827A"){
-                temperature_station4.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station_num"][i]]);
-                windspeed_station4.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station_num"][i]]);
-                pressure_station4.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station_num"][i]]);
-                solar_radiation_station4.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station_num"][i]]);
-            }else if(data_result["station_num"][i] == "231828A"){
-                temperature_station5.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station_num"][i]]);
-                windspeed_station5.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station_num"][i]]);
-                pressure_station5.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station_num"][i]]);
-                solar_radiation_station5.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station_num"][i]]);
+            if (data_result["station"][i] == "231824A"){
+                temperature_station1.push([data_result["sensor_datetime"][i], data_result["temperature"][i],  data_result["station"][i]]);
+                windspeed_station1.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station"][i]]);
+                pressure_station1.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station"][i]]);
+                solar_radiation_station1.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station"][i]]);
+            }else if(data_result["station"][i] == "231825A"){
+                temperature_station2.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station"][i]]);
+                windspeed_station2.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station"][i]]);
+                pressure_station2.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station"][i]]);
+                solar_radiation_station2.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station"][i]]);
+            }else if(data_result["station"][i] == "231826A"){
+                temperature_station3.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station"][i]]);
+                windspeed_station3.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station"][i]]);
+                pressure_station3.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station"][i]]);
+                solar_radiation_station3.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station"][i]]);
+            }else if(data_result["station"][i] == "231827A"){
+                temperature_station4.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station"][i]]);
+                windspeed_station4.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station"][i]]);
+                pressure_station4.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station"][i]]);
+                solar_radiation_station4.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i],  data_result["station"][i]]);
+            }else if(data_result["station"][i] == "231828A"){
+                temperature_station5.push([data_result["sensor_datetime"][i], data_result["temperature"][i], data_result["station"][i]]);
+                windspeed_station5.push([data_result["sensor_datetime"][i], data_result["wind_speed"][i],  data_result["station"][i]]);
+                pressure_station5.push([data_result["sensor_datetime"][i], data_result["pressure"][i],  data_result["station"][i]]);
+                solar_radiation_station5.push([data_result["sensor_datetime"][i], data_result["solar_radiation"][i], data_result["station"][i]]);
             }else{
 
             }
@@ -406,7 +406,7 @@ $(document).ready(function(){
             myChart5.setOption(option5);
         } 
 
-        if (option2 && typeof option2 === 'object') {
+        if (option6 && typeof option6 === 'object') {
             myChart6.setOption(option6);
         } 
 
