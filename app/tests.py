@@ -189,8 +189,9 @@ class LineChartTest(TestCase):
         response = c.get(self.line_chart_url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["station"]), 3)
-from django.http.response import HttpResponse
 
+
+from django.http.response import HttpResponse
 class DownloadTest(TestCase):
     def setUp(self):
         self.download_url = '/download/'
@@ -234,7 +235,7 @@ class DownloadTest(TestCase):
     def test_download(self):
         response = self.client.get(self.download_url)
         print(response.content)
-        respected_result = b'id,sensor_datetime,rainfall,rainfall_quality,temperature,temperature_quality,humidity,humidity_quality,wind_direction,wind_direction_quality,wind_speed,wind_speed_quality,pressure,pressure_quality,solar_radiation,solar_radiation_quality,station\r\n2,2021-12-05 00:00:30+00:00,454.0,,32.0,,,,,,12.00,1,3.0,43,,,231828A\r\n3,2021-12-31 15:00:30+00:00,12.0,,24.0,,,,,,5.00,1,5.0,4,,3,231827A\r\n'
+        respected_result = b'id,sensor_datetime,rainfall,rainfall_quality,temperature,temperature_quality,humidity,humidity_quality,wind_direction,wind_direction_quality,wind_speed,wind_speed_quality,pressure,pressure_quality,solar_radiation,solar_radiation_quality,station\r\n4,2021-12-05 00:00:30+00:00,454.0,,32.0,,,,,,12.00,1,3.0,43,,,231828A\r\n5,2021-12-31 15:00:30+00:00,12.0,,24.0,,,,,,5.00,1,5.0,4,,3,231827A\r\n'
         self.assertEqual(response.status_code, 200)
         self.assertEqual(type(response), HttpResponse)
         self.assertEqual(response.content, respected_result)
