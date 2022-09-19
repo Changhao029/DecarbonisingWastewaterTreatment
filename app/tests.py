@@ -137,6 +137,74 @@ class LineChartTest(TestCase):
         self.assertEqual(len(response.data["station"]), 3)
 
 
+class BarChartTest(TestCase):
+    def setUp(self):
+        self.line_chart_url = '/Barchart/'
+        SensorData.objects.create(sensor_datetime='2021-11-30 00:00:30',
+                                  rainfall=None,
+                                  rainfall_quality=None,
+                                  temperature=None,
+                                  temperature_quality=None,
+                                  humidity=None,
+                                  humidity_quality=None,
+                                  wind_direction=None,
+                                  wind_direction_quality=None,
+                                  wind_speed=None,
+                                  wind_speed_quality=None,
+                                  pressure=None,
+                                  pressure_quality=None,
+                                  solar_radiation=None,
+                                  solar_radiation_quality=None,
+                                  station="231825A",
+                                  )
+        SensorData.objects.create(sensor_datetime='2021-11-30 00:00:30',
+                                  rainfall=None,
+                                  rainfall_quality=None,
+                                  temperature=None,
+                                  temperature_quality=None,
+                                  humidity=None,
+                                  humidity_quality=None,
+                                  wind_direction=None,
+                                  wind_direction_quality=None,
+                                  wind_speed=None,
+                                  wind_speed_quality=None,
+                                  pressure=None,
+                                  pressure_quality=None,
+                                  solar_radiation=None,
+                                  solar_radiation_quality=None,
+                                  station="231826A",
+                                  )
+        SensorData.objects.create(sensor_datetime='2021-11-30 00:00:30',
+                                  rainfall=None,
+                                  rainfall_quality=None,
+                                  temperature=None,
+                                  temperature_quality=None,
+                                  humidity=None,
+                                  humidity_quality=None,
+                                  wind_direction=None,
+                                  wind_direction_quality=None,
+                                  wind_speed=None,
+                                  wind_speed_quality=None,
+                                  pressure=None,
+                                  pressure_quality=None,
+                                  solar_radiation=None,
+                                  solar_radiation_quality=None,
+                                  station="231827A",
+                                  )
+    def test_barchart(self):
+        c = Client()
+        response = c.get('/barchart/')
+        print(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(isinstance(response.data, dict))
+        self.assertTrue('rainfall' in response.data)
+        self.assertTrue('humidity' in response.data)
+        self.assertTrue(isinstance(response.data['rainfall'], list))
+        self.assertTrue(isinstance(response.data['humidity'], list))
+        self.assertEqual(len(response.data['humidity']), len(response.data['rainfall']))
+
+
+
 from django.http.response import HttpResponse
 class DownloadTest(TestCase):
     def setUp(self):
@@ -186,12 +254,3 @@ class DownloadTest(TestCase):
         self.assertEqual(type(response), HttpResponse)
         self.assertEqual(response.content, respected_result)
         print("Download success")
-
-
-
-
-
-
-
-
-
