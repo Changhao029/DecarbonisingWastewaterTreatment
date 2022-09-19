@@ -1,5 +1,5 @@
 # API Document
-## 1. Data Table API
+## 1. Data Table API(Changhao Liu 22924454) 
 ### 1. Interface description
 First, all data is returned in the form of pages, each page has 200 pieces of data.
 Second, query the data by the id and the station name, and return the query result with paginiation.
@@ -60,7 +60,7 @@ There is not any parameter in the request body. However, the query conditions sh
 ```
 
 
-## 2. Line Chart API
+## 2. Line Chart API(Changhao Liu 22924454) 
 ### 1. Interface description
 Return all the data required by the previous line chart.
 ### 2. URL
@@ -136,7 +136,7 @@ There is not any parameter in the request body.
 }
 ```
 
-## 3. Bar Char API
+## 3. Bar Char API(Charlie Hu 23217014) 
 ### 1. Interface description
 Return all the data required by the previous bar chart.
 ### 2. URL
@@ -176,7 +176,7 @@ There is not any parameter in the request body.
 }
 ```
 
-## 4. Download API
+## 4. Download API(Yinuo Zhao 23112901) 
 ### 1. Interface description
 Download the data as a CSV file. It supports the downlaod of all data, 
 as well as the data queried by condition. The query conditions should be included in the url. 
