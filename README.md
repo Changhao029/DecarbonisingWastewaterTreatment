@@ -63,7 +63,7 @@ Create the database named DecarbonisingWastewaterTreatment in mysql.
 
 `create database DecarbonisingWastewaterTreatment;`
 
-### Run the project
+### 4. Run the project
 After installing the mysql and creating the database, you can run the 
 project in the virtual environment.
 
