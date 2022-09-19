@@ -133,6 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     "PAGE_SIZE": 200,
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
