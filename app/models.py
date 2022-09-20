@@ -3,15 +3,11 @@ from django.db import models
 
 class SensorData(models.Model):
     """
-
+        This class is used to declare the structure of the database.
+        In theis class, there are 16 fields. The first fields named "id" that is the number of the data.
+        Other fields are the fields from the client data file.
+        These fields are the different columns in their database.
     """
-    # station_choices = (
-    #     (1, "231824A"),
-    #     (2, "231825A"),
-    #     (3, "231826A"),
-    #     (4, "231827A"),
-    #     (5, "231828A")
-    # )
     id = models.AutoField(verbose_name='id', primary_key=True)
     sensor_datetime = models.DateTimeField(verbose_name='sensor_datetime')
     rainfall = models.DecimalField(verbose_name='rainfall', max_digits=20, decimal_places=1, null=True)

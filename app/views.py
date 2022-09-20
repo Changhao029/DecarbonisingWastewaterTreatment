@@ -42,6 +42,13 @@ class SearchFilterBackend(BaseFilterBackend):
 
 
 class DataTable(ListAPIView):
+    """
+        view class for data display function and data query function.
+        GET:
+        If there is query condition, this view will return the query result to the frontend.
+        If there is not a query condition, this view will return all the data to the frontend.
+        :return Response(serializer.data)
+    """
     queryset = SensorData.objects.all()
     filter_backends = [SearchFilterBackend, ]
     serializer_class = SensorDataSerializer
@@ -49,9 +56,14 @@ class DataTable(ListAPIView):
 
 
 class LineChartView(ListAPIView):
-    # serializer_class = LineChartDataSerializer
-    # queryset = SensorData.objects.all()
-    # filter_backends = [SearchFilterBackend, ]
+    """
+        view class for line chart function.
+        GET:
+        return the station, sensor_datetime, temperature, wind_speed,
+        pressure and solar_radiation columns from the database.
+        :return Response(linechart_dict{"station":[], "sensor_datetime":[], "temperature":[], "wind_speed":[],
+        "pressure":[], "solar_radiation":[]})
+    """
     def get(self, request, *args, **kwargs):
         queryset = SensorData.objects.all().order_by("sensor_datetime")[0:1000]
         ser = LineChartDataSerializer(instance=queryset, many=True)
@@ -66,7 +78,6 @@ class LineChartView(ListAPIView):
             linechart_dict["station"].append(item.get("station"))
             linechart_dict["sensor_datetime"].append(datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
                                                                                           "%Y-%m-%dT%H:%M:%SZ")) * 1000)
-
             linechart_dict["temperature"].append(item.get("temperature"))
             linechart_dict["wind_speed"].append(item.get("wind_speed"))
             linechart_dict["pressure"].append(item.get("pressure"))
@@ -85,13 +96,6 @@ class BarChartView(APIView):
             "humidity": [item.get("humidity") for item in ser.data],
         }
         return Response(barchart_dict)
-
-
-# class BarChartView(ListAPIView):
-#
-#     def get(self, request, *arg, **kwargs):
-#         queryset = SensorData.objects.all()
-#         serializer_class = BarChartDataSerializer
 
 
 class FakeData(APIView):
