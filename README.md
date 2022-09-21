@@ -1,4 +1,16 @@
-# DecarbonisingWastewaterTreatment
+# DecarbonisingWastewaterTreatment Web App:
+## Description
+This web app:
+
+Offer web-based interactive visualisations of the sensor data from WSP-based wastewater treatment plant;
+
+Allow researcher or industry users to download data as csv file or the visualisations as png file for further analysis.
+(https://teaching.csse.uwa.edu.au/units/CITS5206/cits5206projectsoffered2022.html)
+
+## Cloud Deployment
+The current-version project has been deployed to AWS.
+
+http://my5206projectfrontend.s3.ap-southeast-2.amazonaws.com/static/data_report.html
 
 ## Local Deployment Document
 ### 1. Install the pip3, Django, and environment

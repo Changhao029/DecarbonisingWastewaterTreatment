@@ -6,7 +6,7 @@ var condition_dict = new Array()
 var condition_str = ""
 var download_query_url = ""
 
-
+//create table
 $(document).ready(function(){
     current_page = 1
     $.get("http://127.0.0.1:50003/datatable/?page=1",function(data_result,status){
@@ -41,6 +41,7 @@ $(document).ready(function(){
     });
 });
 
+// pre page
 function pre_page(){
     if (current_page >1 ){
         current_page = current_page - 1
@@ -78,6 +79,7 @@ function pre_page(){
     }
 }
 
+//next page
 function next_page(){
     if (next_page_url){
         current_page = current_page + 1
@@ -113,6 +115,7 @@ function next_page(){
     }
 }
 
+//data query
 function query_data(){
     var query_id = document.getElementById("query_id").value;
     var query_station = document.getElementById("query_station").value;
@@ -171,6 +174,7 @@ function query_data(){
 
 }
 
+//data download
 function download_data(){
     console.log(condition_str)
     download_query_url = "http://127.0.0.1:50003/download/?" + condition_str
