@@ -133,12 +133,14 @@ class FakeData(APIView):
         return Response("successful")
 
 
-# def download(request):
-#     data = download_csv(request, SensorData.objects.all())
-#     return HttpResponse(data, content_type='text/csv')
-
 class Download(APIView):
-
+    """
+        view class for data download function.
+        GET:
+        If there is query condition in request, this view will download the query result as a csv file.
+        If there is not a query condition, this view will download all the data as a csv file.
+        :return HttpResponse(data, content_type='text/csv')
+    """
     def get(self, request, *args, **kwargs):
         query_condition = dict()
         for k, v in request.query_params.dict().items():
