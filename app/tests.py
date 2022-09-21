@@ -61,18 +61,21 @@ class DataTableTest(TestCase):
         response = c.get(self.data_query_all_url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], len(SensorData.objects.all()))
+        print("Query all data successfully")
 
     def test_data_query_one(self):
         c = Client()
         response = c.get(self.data_query_one_url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["results"][0]["station"], "231825A")
+        print("Query one piece of data with condition successfully")
 
     def test_data_query_none(self):
         c = Client()
         response = c.get(self.data_query_none_url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], 0)
+        print("Get correct response successfully when query one")
 
 
 class LineChartTest(TestCase):
@@ -135,6 +138,7 @@ class LineChartTest(TestCase):
         response = c.get(self.line_chart_url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data["station"]), 3)
+        print("Query all data in Line Chart successfully")
 
 
 class BarChartTest(TestCase):
@@ -194,7 +198,6 @@ class BarChartTest(TestCase):
     def test_barchart(self):
         c = Client()
         response = c.get('/barchart/')
-        print(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(isinstance(response.data, dict))
         self.assertTrue('rainfall' in response.data)
@@ -202,11 +205,16 @@ class BarChartTest(TestCase):
         self.assertTrue(isinstance(response.data['rainfall'], list))
         self.assertTrue(isinstance(response.data['humidity'], list))
         self.assertEqual(len(response.data['humidity']), len(response.data['rainfall']))
+        print("Query all data in Bar Chart successfully")
+
 
 
 
 from django.http.response import HttpResponse
 class DownloadTest(TestCase):
+    """
+    Test view for Download data as csv file function.
+    """
     def setUp(self):
         self.download_url = '/download/'
         SensorData.objects.create(sensor_datetime='2021-12-05 00:00:30',
@@ -248,9 +256,9 @@ class DownloadTest(TestCase):
 
     def test_download(self):
         response = self.client.get(self.download_url)
-        print(response.content)
-        respected_result = b'id,sensor_datetime,rainfall,rainfall_quality,temperature,temperature_quality,humidity,humidity_quality,wind_direction,wind_direction_quality,wind_speed,wind_speed_quality,pressure,pressure_quality,solar_radiation,solar_radiation_quality,station\r\n4,2021-12-05 00:00:30+00:00,454.0,,32.0,,,,,,12.00,1,3.0,43,,,231828A\r\n5,2021-12-31 15:00:30+00:00,12.0,,24.0,,,,,,5.00,1,5.0,4,,3,231827A\r\n'
+        # count the number of \n in response content
+        line_count = response.content.count(b'\x0a')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(type(response), HttpResponse)
-        self.assertEqual(response.content, respected_result)
-        print("Download success")
+        self.assertEqual(line_count, 3)
+        print("Download data file successfully")
