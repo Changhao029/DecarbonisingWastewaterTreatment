@@ -6,7 +6,7 @@ class SensorDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SensorData
-        fields = "__all__"
+        fields = ["id", "sensor_datetime", "rainfall", "temperature", "humidity", "wind_direction", "wind_speed", "pressure", "solar_radiation", "station"]
 
 
 class FakeSensorDataSerializer(serializers.ModelSerializer):
