@@ -38,7 +38,19 @@ class SearchFilterBackend(BaseFilterBackend):
             query_condition[k] = v
         if "page" in query_condition:
             del query_condition["page"]
-        return queryset.filter(**query_condition)
+        if "start_time" in query_condition and "end_time" in query_condition:
+            start_time_str = query_condition["start_time"]
+            start_time = datetime.strptime(start_time_str, '%Y-%m-%dT%H:%M')
+            print(start_time)
+            del query_condition["start_time"]
+            end_time_str = query_condition["end_time"]
+            end_time = datetime.strptime(end_time_str, '%Y-%m-%dT%H:%M')
+            print(end_time)
+            del query_condition["end_time"]
+            queryset = queryset.filter(sensor_datetime__range=[start_time, end_time])
+        queryset = queryset.filter(**query_condition)
+
+        return queryset
 
 
 class DataTable(ListAPIView):
@@ -134,6 +146,15 @@ class FakeData(APIView):
 
 
 class Download(APIView):
+    filter_backends = [SearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
+        queryset = SensorData.objects.all()
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
     """
         view class for data download function.
         GET:
@@ -142,11 +163,7 @@ class Download(APIView):
         :return HttpResponse(data, content_type='text/csv')
     """
     def get(self, request, *args, **kwargs):
-        query_condition = dict()
-        for k, v in request.query_params.dict().items():
-            query_condition[k] = v
-        queryset = SensorData.objects.all().filter(**query_condition)
-        data = download_csv(request, queryset)
+        data = download_csv(request, self.get_queryset())
         response = HttpResponse(data, content_type='text/csv')
         file_name = time.strftime("%Y%m%d%H%M%S", time.localtime()) + ".csv"
         response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file_name)

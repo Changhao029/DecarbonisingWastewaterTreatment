@@ -75,6 +75,13 @@
             name="query_station"
             placeholder="query by station"
           />
+
+          <label for="">from:</label>
+          <input type="datetime-local" id="start_time">
+
+          <label for="">to:</label>
+          <input type="datetime-local" id="end_time">
+
           <div class="query_download_div">
             <input type="button" class="query_download" onclick="query_data()" value="Query" />
             <input type="button" class="query_download" onclick="download_data()" value="Download" />
