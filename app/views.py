@@ -64,6 +64,7 @@ class LineChartView(ListAPIView):
         :return Response(linechart_dict{"station":[], "sensor_datetime":[], "temperature":[], "wind_speed":[],
         "pressure":[], "solar_radiation":[]})
     """
+
     def get(self, request, *args, **kwargs):
         queryset = SensorData.objects.all().order_by("sensor_datetime")[0:1000]
         ser = LineChartDataSerializer(instance=queryset, many=True)
@@ -89,13 +90,44 @@ class LineChartView(ListAPIView):
 class BarChartView(APIView):
 
     def get(self, request, *arg, **kwargs):
-        queryset = SensorData.objects.all()[0:10000]
+        queryset = SensorData.objects.all()[0:1000]
         ser = BarChartDataSerializer(instance=queryset, many=True)
-        barchart_dict = {
-            "rainfall": [item.get("rainfall") for item in ser.data],
-            "humidity": [item.get("humidity") for item in ser.data],
-        }
-        return Response(barchart_dict)
+        month_list = {"Nov": [0, 0], "Dec": [0, 0], "Jan": [0, 0], "Feb": [0, 0]}
+        for item in ser.data:
+            per_month = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ").month
+            if per_month == 11:
+                if item.get('rainfall') is not None:
+                    month_list['Nov'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Nov'][1] += float(item.get("humidity"))
+            if per_month == 12:
+                if item.get('rainfall') is not None:
+                    month_list['Dec'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Dec'][1] += float(item.get("humidity"))
+            if per_month == 1:
+                if item.get('rainfall') is not None:
+                    month_list['Jan'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Jan'][1] += float(item.get("humidity"))
+            if per_month == 2:
+                if item.get('rainfall') is not None:
+                    month_list['Feb'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Feb'][1] += float(item.get("humidity"))
+        return Response(month_list)
+
+
+# class BarChartView(APIView):
+#
+#     def get(self, request, *arg, **kwargs):
+#         queryset = SensorData.objects.all()[0:10000]
+#         ser = BarChartDataSerializer(instance=queryset, many=True)
+#         barchart_dict = {
+#             "rainfall": [item.get("rainfall") for item in ser.data],
+#             "humidity": [item.get("humidity") for item in ser.data],
+#         }
+#         return Response(barchart_dict)
 
 
 class FakeData(APIView):
@@ -107,7 +139,7 @@ class FakeData(APIView):
         for line in data[1:]:
             line = line.strip('\n')
             line_list = line.split(',')
-            line_null_list = [ None if i == "" else i for i in line_list ]
+            line_null_list = [None if i == "" else i for i in line_list]
 
             temp_dict = SensorData()
             temp_dict.sensor_datetime = line_null_list[0]
@@ -141,6 +173,7 @@ class Download(APIView):
         If there is not a query condition, this view will download all the data as a csv file.
         :return HttpResponse(data, content_type='text/csv')
     """
+
     def get(self, request, *args, **kwargs):
         query_condition = dict()
         for k, v in request.query_params.dict().items():
