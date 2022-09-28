@@ -1,3 +1,24 @@
 #container1, #container2,#container3,#container4,#container5,#container6{
-    height: 300px;
+    height: 400px;
+    margin-bottom: 15px;
+}
+
+#chart1, #chart2,#chart3,#chart4,#chart5,#chart6{
+    margin-top: 45px;
+    height: 430px;
+}
+
+.time_range_query{
+    margin-top: 20px;
+    margin-left: 20px; 
+}
+
+.time_range_input{
+    width: auto;
+    float: left;
+}
+
+.time_range_button{
+    float: left;
+    margin-left: 10px;
 }
