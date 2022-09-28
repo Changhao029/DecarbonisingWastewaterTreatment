@@ -11,7 +11,6 @@ from app.models import SensorData
 from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer, \
     BarChartDataSerializer, TemperatureLineChartDataSerializer, WindSpeedLineChartDataSerializer, \
     PressureLineChartDataSerializer, SolarRadiationLineChartDataSerializer
-from app.random_mockup import RandomFakeData
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
 
