@@ -24,7 +24,7 @@ var option2;
 var option5;
 var option6;
 
-function create_chart(option, myChart, name, data_result ){
+function create_chart(option, myChart, name, data_result, scale){
     option = {
         tooltip: {
             trigger: 'axis',
@@ -32,71 +32,75 @@ function create_chart(option, myChart, name, data_result ){
             return [pt[0], '10%'];
             }
         },
+        legend: {
+            data: ["231824A", "231825A", "231826A", "231827A", "231828A"]
+        },
         title: {
-            left: 'center',
+            left: 'left',
             text: name
         },
         toolbox: {
             feature: {
-            dataZoom: {
-                yAxisIndex: 'none'
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
             },
-            restore: {},
-            saveAsImage: {}
-        }
-    },
-    xAxis: {
-        type: 'time',
-        interval: 100,
-        boundaryGap: false,
-    },
-    yAxis: {
-        type: 'value',
-        boundaryGap: [0, '100%'],
-    },
-    dataZoom: [
-        {
-            type: 'inside',
-            start: 0,
-            end: 20
         },
-        {
-            start: 0,
-            end: 20
-        }
-    ],
-    series: [
-        {
-            name: 'Station1',
-            type: 'line',
-            symbol: 'none',
-            data: data_result["station1"]
+        xAxis: {
+            type: 'time',
+            interval: 100,
+            boundaryGap: false,
         },
-        {
-            name: 'Station2',
-            type: 'line',
-            symbol: 'none',
-            data: data_result["station2"]
+        yAxis: {
+            type: 'value',
+            boundaryGap: [0, '100%'],
+            axisLabel: {formatter: '{value}'+scale},
         },
-        {
-            name: 'Station3',
-            type: 'line',
-            symbol: 'none',
-            data: data_result["station3"]
-        },
-        {
-            name: 'Station4',
-            type: 'line',
-            symbol: 'none',
-            data: data_result["station4"]
-        },
-        {
-            name: 'Station5',
-            type: 'line',
-            symbol: 'none',
-            data: data_result["station5"]
-        }
-    ]
+        dataZoom: [
+            {
+                type: 'inside',
+                start: 0,
+                end: 20
+            },
+            {
+                start: 0,
+                end: 20
+            }
+        ],
+        series: [
+            {
+                name: '231824A',
+                type: 'line',
+                symbol: 'none',
+                data: data_result["station1"]
+            },
+            {
+                name: '231825A',
+                type: 'line',
+                symbol: 'none',
+                data: data_result["station2"]
+            },
+            {
+                name: '231826A',
+                type: 'line',
+                symbol: 'none',
+                data: data_result["station3"]
+            },
+            {
+                name: '231827A',
+                type: 'line',
+                symbol: 'none',
+                data: data_result["station4"]
+            },
+            {
+                name: '231828A',
+                type: 'line',
+                symbol: 'none',
+                data: data_result["station5"]
+            }
+        ]
     };
 
     if (option && typeof option === 'object') {
@@ -107,19 +111,19 @@ function create_chart(option, myChart, name, data_result ){
 
 $(document).ready(function(){
     $.get("http://127.0.0.1:50003/temperaturelinechart/",function(data_result,status){
-        create_chart(option1, myChart1, "Temperature Chart", data_result)
+        create_chart(option1, myChart1, "Temperature Chart", data_result, "℃")
     });
 
     $.get("http://127.0.0.1:50003/windspeedlinechart/",function(data_result,status){
-        create_chart(option2, myChart2, "Wind Speed Chart", data_result)
+        create_chart(option2, myChart2, "Wind Speed Chart", data_result, "ms^-1")
     });
 
     $.get("http://127.0.0.1:50003/pressurelinechart/",function(data_result,status){
-        create_chart(option5, myChart5, "Pressure Chart", data_result)
+        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa")
     });
 
     $.get("http://127.0.0.1:50003/solarradiationlinechart/",function(data_result,status){
-        create_chart(option6, myChart6, "Solar RadiationL Chart", data_result)
+        create_chart(option6, myChart6, "Solar RadiationL Chart", data_result, "W m^-2")
     });
 });
 
@@ -152,7 +156,7 @@ function chart1_time_range(){
    query_url = create_url(start_time, end_time, "temperaturelinechart")
 
     $.get(query_url,function(data_result,status){
-        create_chart(option1, myChart1, "Temperature Chart", data_result)
+        create_chart(option1, myChart1, "Temperature Chart", data_result, "℃")
     });
 
 }
@@ -164,7 +168,7 @@ function chart2_time_range(){
     query_url = create_url(start_time, end_time, "windspeedlinechart")
 
     $.get(query_url,function(data_result,status){
-        create_chart(option2, myChart2, "Wind Speed Chart", data_result)
+        create_chart(option2, myChart2, "Wind Speed Chart", data_result, "ms^-1")
     });
 
 }
@@ -176,7 +180,7 @@ function chart5_time_range(){
     query_url = create_url(start_time, end_time, "pressurelinechart")
 
     $.get(query_url,function(data_result,status){
-        create_chart(option5, myChart5, "Pressure Chart", data_result)
+        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa")
     });
 
 }
@@ -188,6 +192,6 @@ function chart6_time_range(){
     query_url = create_url(start_time, end_time, "solarradiationlinechart")
 
     $.get(query_url,function(data_result,status){
-        create_chart(option6, myChart6, "Solar Radiation Chart", data_result)
+        create_chart(option6, myChart6, "Solar Radiation Chart", data_result, "W m^-2")
     });
 }
