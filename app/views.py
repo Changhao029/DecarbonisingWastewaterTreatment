@@ -9,7 +9,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from app.models import SensorData
 from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer, \
-    BarChartDataSerializer
+    BarChartDataSerializer, TemperatureLineChartDataSerializer, WindSpeedLineChartDataSerializer, \
+    PressureLineChartDataSerializer, SolarRadiationLineChartDataSerializer
 from app.random_mockup import RandomFakeData
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
@@ -18,17 +19,43 @@ from .utils import download_csv
 from django.http import HttpResponse
 
 
-# class DataTable(APIView):
-#
-#     def get(self, request, *args, **kwargs):
-#         if request.query_params:
-#             queryset = SensorData.objects.filter(**request.query_params).first()
-#             ser = SensorDataSerializer(instance=queryset, many=False)
-#         else:
-#             queryset = SensorData.objects.all()
-#             ser = SensorDataSerializer(instance=queryset, many=True)
-#         return Response({"result": ser.data})
+def group_by_station(ser,data_name):
+    linechart_dict = dict()
+    for i in range(1, 6):
+        linechart_dict["station" + str(i)] = list()
 
+    for item in ser.data:
+        if item.get("station") == "231824A":
+            linechart_dict["station1"].append([
+                datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
+                                                     "%Y-%m-%dT%H:%M:%SZ")) * 1000,
+                item.get(data_name),
+                item.get("station")])
+        elif item.get("station") == "231825A":
+            linechart_dict["station2"].append([
+                datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
+                                                     "%Y-%m-%dT%H:%M:%SZ")) * 1000,
+                item.get(data_name),
+                item.get("station")])
+        elif item.get("station") == "231826A":
+            linechart_dict["station3"].append([
+                datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
+                                                     "%Y-%m-%dT%H:%M:%SZ")) * 1000,
+                item.get(data_name),
+                item.get("station")])
+        elif item.get("station") == "231827A":
+            linechart_dict["station4"].append([
+                datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
+                                                     "%Y-%m-%dT%H:%M:%SZ")) * 1000,
+                item.get(data_name),
+                item.get("station")])
+        elif item.get("station") == "231828A":
+            linechart_dict["station5"].append([
+                datetime.timestamp(datetime.strptime(item.get("sensor_datetime"),
+                                                     "%Y-%m-%dT%H:%M:%SZ")) * 1000,
+                item.get(data_name),
+                item.get("station")])
+    return linechart_dict
 
 class SearchFilterBackend(BaseFilterBackend):
 
@@ -97,6 +124,91 @@ class LineChartView(ListAPIView):
 
         return Response(linechart_dict)
 
+
+class LineChartSearchFilterBackend(BaseFilterBackend):
+
+    def filter_queryset(self, request, queryset, view):
+        query_condition = dict()
+        for k, v in request.query_params.dict().items():
+            query_condition[k] = v
+        if "start_time" in query_condition and "end_time" in query_condition:
+            start_time_str = query_condition["start_time"]
+            start_time = datetime.strptime(start_time_str, '%Y-%m-%dT%H:%M')
+            print(start_time)
+            del query_condition["start_time"]
+            end_time_str = query_condition["end_time"]
+            end_time = datetime.strptime(end_time_str, '%Y-%m-%dT%H:%M')
+            print(end_time)
+            del query_condition["end_time"]
+            queryset = queryset.filter(sensor_datetime__range=[start_time, end_time])
+            return queryset
+        return queryset[0:10000]
+
+
+
+
+class TemperatureLineChartView(ListAPIView):
+    filter_backends = [LineChartSearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
+        queryset = SensorData.objects.all()
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+            ser = TemperatureLineChartDataSerializer(instance=self.get_queryset(), many=True)
+            linechart_dict = group_by_station(ser, "temperature")
+            return Response(linechart_dict)
+
+
+class WindSpeedLineChartView(ListAPIView):
+    filter_backends = [LineChartSearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
+        queryset = SensorData.objects.all()
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+            ser = WindSpeedLineChartDataSerializer(instance=self.get_queryset(), many=True)
+            linechart_dict = group_by_station(ser, "wind_speed")
+            return Response(linechart_dict)
+
+
+class PressureLineChartView(ListAPIView):
+    filter_backends = [LineChartSearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
+        queryset = SensorData.objects.all()
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+            ser = PressureLineChartDataSerializer(instance=self.get_queryset(), many=True)
+            linechart_dict = group_by_station(ser, "pressure")
+            return Response(linechart_dict)
+
+
+class SolarRadiationLineChartView(ListAPIView):
+    filter_backends = [LineChartSearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
+        queryset = SensorData.objects.all()
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+            ser = SolarRadiationLineChartDataSerializer(instance=self.get_queryset(), many=True)
+            linechart_dict = group_by_station(ser, "solar_radiation")
+            return Response(linechart_dict)
 
 class BarChartView(APIView):
 
