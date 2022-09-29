@@ -5,9 +5,18 @@
     <meta charset="utf-8" />
     <title>Decarbonising Wastewater Treatment</title>
     <link href="css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+    />
     <script src="js/script.js"></script>
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,13 +24,13 @@
 
   <body>
     <!-- Side Navigation Bar -->
-    <div class="navbar">
+    <div class="navibar">
       <div class="yes">
         <a href="#top" class="top"> Data Platform </a>
-        <ul class="navbar-menu">
-          <a href="#Data-Report" class="navbar-link">
+        <ul class="navibar-menu">
+          <a href="#Data-Report" class="navibar-link">
             <li
-              class="navbar-item"
+              class="navibar-item"
               id="Data Report"
               onclick="switchToNavbarItem('Data Report')"
             >
@@ -29,20 +38,20 @@
               Data Report
             </li>
           </a>
-          <a href="data_visualisation.html" class="navbar-link">
+          <a href="data_visualisation.html" class="navibar-link">
             <li
-              class="navbar-item"
-              id="Data Center"
-              onclick="switchToNavbarItem('Data Center')"
+              class="navibar-item"
+              id="Data Centre"
+              onclick="switchToNavbarItem('Data Centre')"
             >
               <span class="material-symbols-outlined"> monitoring </span> &nbsp;
-              Data Center
+              Data Centre
             </li>
           </a>
           <!-- Change this link to sharing page later -->
-          <a href="#Sharing" class="navbar-link">
+          <a href="#Sharing" class="navibar-link">
             <li
-              class="navbar-item"
+              class="navibar-item"
               id="Sharing"
               onclick="switchToNavbarItem('Sharing')"
             >
@@ -67,7 +76,7 @@
             name="query_id"
             placeholder="query by ID"
           />
-          
+
           <label for="search-query">station:</label>
           <input
             type="text"
@@ -83,10 +92,19 @@
           <input type="datetime-local" id="end_time">
 
           <div class="query_download_div">
-            <input type="button" class="query_download" onclick="query_data()" value="Query" />
-            <input type="button" class="query_download" onclick="download_data()" value="Download" />
+            <input
+              type="button"
+              class="query_download"
+              onclick="query_data()"
+              value="Query"
+            />
+            <input
+              type="button"
+              class="query_download"
+              onclick="download_data()"
+              value="Download"
+            />
           </div>
-          
         </form>
         <br />
         <div class="data-display">
@@ -112,13 +130,18 @@
                 </tbody>
               </table>
 
-              <ul class="pagination" style="margin:20px 0">
-                <li class="page-item" onclick="pre_page()"><a class="page-link" href="#">Previous</a></li>
-                <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+
+            <ul class="pagination" style="margin: 20px 0">
+              <li class="page-item" onclick="pre_page()">
+                <a class="page-link" href="#">Previous</a>
+              </li>
+              <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-                <li class="page-item" onclick="next_page()"><a class="page-link" href="#">Next</a></li>
-              </ul>
+              <li class="page-item" onclick="next_page()">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
