@@ -1,11 +1,24 @@
 $(document).ready(function () {
-    $.get('http://127.0.0.1:8000/barchart/', function (data) {
-        console.log(data)
-        barchart(data,0, "container3", "Rainfall Barchart")
-        barchart(data,1, "container4", "Humidity Barchart")
+    $.get('http://127.0.0.1:50003/barchart/', function (data) {
+        console.log(data['0'])
+        let value_r = [];
+        let value_h = [];
+        let rainfall = data[0]
+        let humidity = data[1]
+        for (let key in rainfall) {
+            value_r.unshift(rainfall[key]);
+        }
+        for (let key in humidity) {
+            value_h.unshift(humidity[key]);
+        }
+        console.log(value_r)
+        console.log(value_h)
+        barchart(value_r, "container3", "Rainfall")
+        barchart(value_h, "container4", "Humidity")
     })
 
-    function barchart(r_data, data_c, id, name) {
+
+    function barchart(r_data, id, name) {
         var BarChart = echarts.init(document.getElementById(id));
         option = {
             title: {
@@ -14,15 +27,16 @@ $(document).ready(function () {
                 top: 10
             },
             xAxis: {
-                type: 'category',
-                data: ['Nov', 'Dec', 'Jan', 'Feb']
+                name: 'each day',
+                type: 'category'
             },
             yAxis: {
+                name: 'total',
                 type: 'value'
             },
             series: [
                 {
-                    data: [r_data['Nov'][data_c], r_data['Dec'][data_c], r_data['Jan'][data_c], r_data['Feb'][data_c]],
+                    data: r_data,
                     type: 'bar',
                     showBackground: true,
                     backgroundStyle: {

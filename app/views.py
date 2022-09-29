@@ -210,36 +210,77 @@ class SolarRadiationLineChartView(ListAPIView):
         linechart_dict = group_by_station(ser, "solar_radiation")
         return Response(linechart_dict)
 
-
 class BarChartView(APIView):
-
     def get(self, request, *arg, **kwargs):
-        queryset = SensorData.objects.all()[0:1000]
+        queryset = SensorData.objects.all()
         ser = BarChartDataSerializer(instance=queryset, many=True)
-        month_list = {"Nov": [0, 0], "Dec": [0, 0], "Jan": [0, 0], "Feb": [0, 0]}
-        for item in ser.data:
-            per_month = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ").month
-            if per_month == 11:
-                if item.get('rainfall') is not None:
-                    month_list['Nov'][0] += float(item.get("rainfall"))
-                if item.get('humidity') is not None:
-                    month_list['Nov'][1] += float(item.get("humidity"))
-            if per_month == 12:
-                if item.get('rainfall') is not None:
-                    month_list['Dec'][0] += float(item.get("rainfall"))
-                if item.get('humidity') is not None:
-                    month_list['Dec'][1] += float(item.get("humidity"))
-            if per_month == 1:
-                if item.get('rainfall') is not None:
-                    month_list['Jan'][0] += float(item.get("rainfall"))
-                if item.get('humidity') is not None:
-                    month_list['Jan'][1] += float(item.get("humidity"))
-            if per_month == 2:
-                if item.get('rainfall') is not None:
-                    month_list['Feb'][0] += float(item.get("rainfall"))
-                if item.get('humidity') is not None:
-                    month_list['Feb'][1] += float(item.get("humidity"))
-        return Response(month_list)
+        rainfall_total = dict()
+        humidity_total = dict()
+        # rainfall_l = list()
+        # humidity_l = list()
+        final_dataset = list()
+        id_l = list()
+
+        for i, item in enumerate(ser.data):
+            date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
+            key_id = date_t.year*372 + date_t.month*31 + date_t.day
+            id_l.append(i)
+            # print(key_id)
+            r_value_id = item.get("rainfall")
+            h_value_id = item.get("humidity")
+            # print(value_id)
+            if r_value_id is None:
+                r_value_id = 0
+            if h_value_id is None:
+                h_value_id = 0
+            if key_id not in rainfall_total:
+                rainfall_total[key_id] = float(r_value_id)
+            rainfall_total[key_id] += float(r_value_id)
+            if key_id not in humidity_total:
+                humidity_total[key_id] = float(h_value_id)
+            humidity_total[key_id] += float(h_value_id)
+        sorted(rainfall_total)
+        sorted(humidity_total)
+        # for rainfall in rainfall_total:
+        #     # print(rainfall_total[rainfall])
+        #     rainfall_l.append(rainfall_total[rainfall])
+        # for humidity in humidity_total:
+        #     # print(humidity_total[humidity])
+        #     humidity_l.append(humidity_total[humidity])
+        final_dataset.append(rainfall_total)
+        final_dataset.append(humidity_total)
+        # # print(final_dataset)
+        return Response(final_dataset)
+
+# class BarChartView(APIView):
+#
+#     def get(self, request, *arg, **kwargs):
+#         queryset = SensorData.objects.all()[0:1000]
+#         ser = BarChartDataSerializer(instance=queryset, many=True)
+#         month_list = {"Nov": [0, 0], "Dec": [0, 0], "Jan": [0, 0], "Feb": [0, 0]}
+#         for item in ser.data:
+#             per_month = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ").month
+#             if per_month == 11:
+#                 if item.get('rainfall') is not None:
+#                     month_list['Nov'][0] += float(item.get("rainfall"))
+#                 if item.get('humidity') is not None:
+#                     month_list['Nov'][1] += float(item.get("humidity"))
+#             if per_month == 12:
+#                 if item.get('rainfall') is not None:
+#                     month_list['Dec'][0] += float(item.get("rainfall"))
+#                 if item.get('humidity') is not None:
+#                     month_list['Dec'][1] += float(item.get("humidity"))
+#             if per_month == 1:
+#                 if item.get('rainfall') is not None:
+#                     month_list['Jan'][0] += float(item.get("rainfall"))
+#                 if item.get('humidity') is not None:
+#                     month_list['Jan'][1] += float(item.get("humidity"))
+#             if per_month == 2:
+#                 if item.get('rainfall') is not None:
+#                     month_list['Feb'][0] += float(item.get("rainfall"))
+#                 if item.get('humidity') is not None:
+#                     month_list['Feb'][1] += float(item.get("humidity"))
+#         return Response(month_list)
 
 
 # class BarChartView(APIView):
