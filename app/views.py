@@ -19,7 +19,7 @@ from .utils import download_csv
 from django.http import HttpResponse
 
 
-def group_by_station(ser,data_name):
+def group_by_station(ser, data_name):
     linechart_dict = dict()
     for i in range(1, 6):
         linechart_dict["station" + str(i)] = list()
@@ -56,6 +56,7 @@ def group_by_station(ser,data_name):
                 item.get(data_name),
                 item.get("station")])
     return linechart_dict
+
 
 class SearchFilterBackend(BaseFilterBackend):
 
@@ -103,6 +104,7 @@ class LineChartView(ListAPIView):
         :return Response(linechart_dict{"station":[], "sensor_datetime":[], "temperature":[], "wind_speed":[],
         "pressure":[], "solar_radiation":[]})
     """
+
     def get(self, request, *args, **kwargs):
         queryset = SensorData.objects.all().order_by("sensor_datetime")[0:1000]
         ser = LineChartDataSerializer(instance=queryset, many=True)
@@ -145,8 +147,6 @@ class LineChartSearchFilterBackend(BaseFilterBackend):
         return queryset[0:10000]
 
 
-
-
 class TemperatureLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -158,9 +158,9 @@ class TemperatureLineChartView(ListAPIView):
         return queryset
 
     def get(self, request, *args, **kwargs):
-            ser = TemperatureLineChartDataSerializer(instance=self.get_queryset(), many=True)
-            linechart_dict = group_by_station(ser, "temperature")
-            return Response(linechart_dict)
+        ser = TemperatureLineChartDataSerializer(instance=self.get_queryset(), many=True)
+        linechart_dict = group_by_station(ser, "temperature")
+        return Response(linechart_dict)
 
 
 class WindSpeedLineChartView(ListAPIView):
@@ -174,9 +174,9 @@ class WindSpeedLineChartView(ListAPIView):
         return queryset
 
     def get(self, request, *args, **kwargs):
-            ser = WindSpeedLineChartDataSerializer(instance=self.get_queryset(), many=True)
-            linechart_dict = group_by_station(ser, "wind_speed")
-            return Response(linechart_dict)
+        ser = WindSpeedLineChartDataSerializer(instance=self.get_queryset(), many=True)
+        linechart_dict = group_by_station(ser, "wind_speed")
+        return Response(linechart_dict)
 
 
 class PressureLineChartView(ListAPIView):
@@ -190,9 +190,9 @@ class PressureLineChartView(ListAPIView):
         return queryset
 
     def get(self, request, *args, **kwargs):
-            ser = PressureLineChartDataSerializer(instance=self.get_queryset(), many=True)
-            linechart_dict = group_by_station(ser, "pressure")
-            return Response(linechart_dict)
+        ser = PressureLineChartDataSerializer(instance=self.get_queryset(), many=True)
+        linechart_dict = group_by_station(ser, "pressure")
+        return Response(linechart_dict)
 
 
 class SolarRadiationLineChartView(ListAPIView):
@@ -206,20 +206,52 @@ class SolarRadiationLineChartView(ListAPIView):
         return queryset
 
     def get(self, request, *args, **kwargs):
-            ser = SolarRadiationLineChartDataSerializer(instance=self.get_queryset(), many=True)
-            linechart_dict = group_by_station(ser, "solar_radiation")
-            return Response(linechart_dict)
+        ser = SolarRadiationLineChartDataSerializer(instance=self.get_queryset(), many=True)
+        linechart_dict = group_by_station(ser, "solar_radiation")
+        return Response(linechart_dict)
+
 
 class BarChartView(APIView):
 
     def get(self, request, *arg, **kwargs):
-        queryset = SensorData.objects.all()[0:10000]
+        queryset = SensorData.objects.all()[0:1000]
         ser = BarChartDataSerializer(instance=queryset, many=True)
-        barchart_dict = {
-            "rainfall": [item.get("rainfall") for item in ser.data],
-            "humidity": [item.get("humidity") for item in ser.data],
-        }
-        return Response(barchart_dict)
+        month_list = {"Nov": [0, 0], "Dec": [0, 0], "Jan": [0, 0], "Feb": [0, 0]}
+        for item in ser.data:
+            per_month = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ").month
+            if per_month == 11:
+                if item.get('rainfall') is not None:
+                    month_list['Nov'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Nov'][1] += float(item.get("humidity"))
+            if per_month == 12:
+                if item.get('rainfall') is not None:
+                    month_list['Dec'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Dec'][1] += float(item.get("humidity"))
+            if per_month == 1:
+                if item.get('rainfall') is not None:
+                    month_list['Jan'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Jan'][1] += float(item.get("humidity"))
+            if per_month == 2:
+                if item.get('rainfall') is not None:
+                    month_list['Feb'][0] += float(item.get("rainfall"))
+                if item.get('humidity') is not None:
+                    month_list['Feb'][1] += float(item.get("humidity"))
+        return Response(month_list)
+
+
+# class BarChartView(APIView):
+#
+#     def get(self, request, *arg, **kwargs):
+#         queryset = SensorData.objects.all()[0:10000]
+#         ser = BarChartDataSerializer(instance=queryset, many=True)
+#         barchart_dict = {
+#             "rainfall": [item.get("rainfall") for item in ser.data],
+#             "humidity": [item.get("humidity") for item in ser.data],
+#         }
+#         return Response(barchart_dict)
 
 
 class FakeData(APIView):
@@ -231,7 +263,7 @@ class FakeData(APIView):
         for line in data[1:]:
             line = line.strip('\n')
             line_list = line.split(',')
-            line_null_list = [ None if i == "" else i for i in line_list ]
+            line_null_list = [None if i == "" else i for i in line_list]
 
             temp_dict = SensorData()
             temp_dict.sensor_datetime = line_null_list[0]
@@ -274,6 +306,7 @@ class Download(APIView):
         If there is not a query condition, this view will download all the data as a csv file.
         :return HttpResponse(data, content_type='text/csv')
     """
+
     def get(self, request, *args, **kwargs):
         data = download_csv(request, self.get_queryset())
         response = HttpResponse(data, content_type='text/csv')
