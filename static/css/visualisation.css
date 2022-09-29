@@ -1,9 +1,9 @@
-#container1, #container2,#container3,#container4,#container5,#container6{
+#container1, #container2,#container3,#container4,#container5,#container6,#container7{
     height: 400px;
     margin-bottom: 15px;
 }
 
-#chart1, #chart2,#chart3,#chart4,#chart5,#chart6{
+#chart1, #chart2,#chart3,#chart4,#chart5,#chart6,#chart7{
     margin-top: 45px;
     height: 430px;
 }

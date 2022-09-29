@@ -24,7 +24,7 @@ var option2;
 var option5;
 var option6;
 
-function create_chart(option, myChart, name, data_result, scale){
+function create_chart(option, myChart, name, data_result, scale, ytitle){
     option = {
         tooltip: {
             trigger: 'axis',
@@ -49,14 +49,23 @@ function create_chart(option, myChart, name, data_result, scale){
             },
         },
         xAxis: {
+            name: 'time',
             type: 'time',
             interval: 100,
             boundaryGap: false,
         },
         yAxis: {
+            name: ytitle,
             type: 'value',
             boundaryGap: [0, '100%'],
             axisLabel: {formatter: '{value}'+scale},
+            axisLine: {
+                show: true,
+                lineStyle:{
+                    color:'black',
+                    width:2
+                }
+            },
         },
         dataZoom: [
             {
@@ -111,19 +120,19 @@ function create_chart(option, myChart, name, data_result, scale){
 
 $(document).ready(function(){
     $.get("http://127.0.0.1:50003/temperaturelinechart/",function(data_result,status){
-        create_chart(option1, myChart1, "Temperature Chart", data_result, "℃")
+        create_chart(option1, myChart1, "Temperature Chart", data_result, "℃", "temperature")
     });
 
     $.get("http://127.0.0.1:50003/windspeedlinechart/",function(data_result,status){
-        create_chart(option2, myChart2, "Wind Speed Chart", data_result, "ms^-1")
+        create_chart(option2, myChart2, "Wind Speed Chart", data_result, "ms^-1", "wind speed")
     });
 
     $.get("http://127.0.0.1:50003/pressurelinechart/",function(data_result,status){
-        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa")
+        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa", "pressure")
     });
 
     $.get("http://127.0.0.1:50003/solarradiationlinechart/",function(data_result,status){
-        create_chart(option6, myChart6, "Solar RadiationL Chart", data_result, "W m^-2")
+        create_chart(option6, myChart6, "Solar Radiation Chart", data_result, "W m^-2", "solar radiation")
     });
 });
 

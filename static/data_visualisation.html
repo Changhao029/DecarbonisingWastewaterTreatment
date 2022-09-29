@@ -210,6 +210,23 @@
           <div id="chart6">
             <div id="container6"></div>
           </div>
+
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart7_start_time">
+
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart7_end_time">
+            </div>
+
+            <div class="chart7_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart7_time_range()" value="Query" />
+            </div>
+          </form>
+          <div id="chart7">
+            <div id="container7"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -221,3 +238,4 @@
 <script src="js/ecStat.min.js"></script>
 <script type="text/javascript" src="js/linechart.js"></script>
 <script src="js/Barchart.js"></script>
+<script src="js/wind_rose_chart.js"></script>
