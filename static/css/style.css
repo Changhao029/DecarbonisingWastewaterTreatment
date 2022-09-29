@@ -44,8 +44,8 @@ select {
   box-shadow: 0 0.5px 10px 0 #00000033, 0 0.5px 10px 0 #00000030;
 }
 
-/* Navbar Styling */
-.navbar {
+/* Navigation bar Styling */
+.navibar {
   height: 100%;
   width: 250px;
   background-color: #182344;
@@ -55,13 +55,13 @@ select {
   left: 0;
 }
 
-.navbar-menu {
+.navibar-menu {
   list-style-type: none;
   padding: 0;
   width: 250px;
 }
 
-.navbar-item {
+.navibar-item {
   background-color: #182344;
   list-style-type: none;
   text-align: center;
@@ -86,7 +86,7 @@ select {
   font-weight: bold;
 }
 
-/* Nav-bar TOP Link styling */
+/* Navigation bar TOP Link styling */
 
 .top:link,
 .top:visited {
@@ -98,25 +98,25 @@ select {
   text-shadow: 2px 2px 5px black;
 }
 
-/* Nav-bar Link styling */
-.navbar-link:link,
-.navbar-link:visited {
+/* Navigation bar Link styling */
+.navibar-link:link,
+.navibar-link:visited {
   color: #b8b8b8;
   text-decoration: none;
 }
 
-.navbar-link:hover {
+.navibar-link:hover {
   color: rgb(76, 59, 107);
   text-align: center;
   text-decoration: none;
   font-weight: bold;
 }
 
-.navbar-item:hover {
+.navibar-item:hover {
   background-color: #53baff;
 }
 
-.query_download_div{
+.query_download_div {
   margin-left: 1300px;
   margin-bottom: 5px;
 }
@@ -163,7 +163,6 @@ select {
   word-wrap: break-word;
   margin: 0;
   padding: 0;
-
 }
 
 .button {
