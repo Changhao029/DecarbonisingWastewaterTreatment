@@ -39,6 +39,15 @@ $(document).ready(function(){
                 left: 'center',
                 top: 10
             },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
             color: ['rgb(25, 183, 207)'],
             grid: {top: 80, containLabel: true},
             xAxis: [{type: 'value', min: min, max: max, interval: interval}],
