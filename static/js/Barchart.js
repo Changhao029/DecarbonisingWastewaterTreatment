@@ -15,7 +15,6 @@ $(document).ready(function () {
         console.log(value_h)
         barchart(value_r, "container3", "Rainfall")
         barchart(value_h, "container4", "Humidity")
-    })
 
 
     function barchart(r_data, id, name) {

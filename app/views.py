@@ -3,6 +3,8 @@ import time
 from abc import ABC
 from datetime import datetime
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.gzip import gzip_page
 from rest_framework.request import Request
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -10,8 +12,7 @@ from rest_framework.views import APIView
 from app.models import SensorData
 from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, LineChartDataSerializer, \
     BarChartDataSerializer, TemperatureLineChartDataSerializer, WindSpeedLineChartDataSerializer, \
-    PressureLineChartDataSerializer, SolarRadiationLineChartDataSerializer
-from app.random_mockup import RandomFakeData
+    PressureLineChartDataSerializer, SolarRadiationLineChartDataSerializer, WindRoseChartDataSerializer
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
 
@@ -56,6 +57,47 @@ def group_by_station(ser, data_name):
                 item.get(data_name),
                 item.get("station")])
     return linechart_dict
+
+
+
+def group_by_station_wind_rose(ser, data_name):
+    result = dict()
+    max_value = 0
+    windroos_list = list()
+    windrose_dict = dict()
+    for i in range(0, 5):
+        # 'N', 'WN', 'W', 'SW', 'S', 'ES', 'E', 'NE'
+        windrose_dict["23182" + str(i+4) + "A"] = list([0, 0, 0, 0, 0, 0, 0, 0])
+
+    for item in ser.data:
+        station_str = item.get("station")
+        if item.get(data_name):
+            if item.get(data_name) <= 22.5 or item.get(data_name) > 337.5:
+                windrose_dict[station_str][0] = windrose_dict[station_str][0] + 1
+            elif 22.5 < item.get(data_name) <= 67.5:
+                windrose_dict[station_str][1] = windrose_dict[station_str][1] + 1
+            elif 67.5 < item.get(data_name) <= 112.5:
+                windrose_dict[station_str][2] = windrose_dict[station_str][2] + 1
+            elif 112.5 < item.get(data_name) <= 157.5:
+                windrose_dict[station_str][3] = windrose_dict[station_str][3] + 1
+            elif 157.5 < item.get(data_name) <= 202.5:
+                windrose_dict[station_str][4] = windrose_dict[station_str][4] + 1
+            elif 202.5 < item.get(data_name) <= 247.5:
+                windrose_dict[station_str][5] = windrose_dict[station_str][5] + 1
+            elif 247.5 < item.get(data_name) <= 292.5:
+                windrose_dict[station_str][6] = windrose_dict[station_str][6] + 1
+            else:
+                windrose_dict[station_str][7] = windrose_dict[station_str][7] + 1
+
+    for k, v in windrose_dict.items():
+        windroos_list.append({"name": k, "value": v})
+        if max_value < max(v):
+            max_value = max(v)
+    while max_value % 50 != 0:
+        max_value = max_value + 1
+    result["data_result"] = windroos_list
+    result["max_value"] = max_value
+    return result
 
 
 class SearchFilterBackend(BaseFilterBackend):
@@ -147,6 +189,7 @@ class LineChartSearchFilterBackend(BaseFilterBackend):
         return queryset[0:10000]
 
 
+@method_decorator(gzip_page, name='dispatch')
 class TemperatureLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -163,6 +206,7 @@ class TemperatureLineChartView(ListAPIView):
         return Response(linechart_dict)
 
 
+@method_decorator(gzip_page, name='dispatch')
 class WindSpeedLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -179,6 +223,7 @@ class WindSpeedLineChartView(ListAPIView):
         return Response(linechart_dict)
 
 
+@method_decorator(gzip_page, name='dispatch')
 class PressureLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -195,6 +240,7 @@ class PressureLineChartView(ListAPIView):
         return Response(linechart_dict)
 
 
+@method_decorator(gzip_page, name='dispatch')
 class SolarRadiationLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -209,6 +255,7 @@ class SolarRadiationLineChartView(ListAPIView):
         ser = SolarRadiationLineChartDataSerializer(instance=self.get_queryset(), many=True)
         linechart_dict = group_by_station(ser, "solar_radiation")
         return Response(linechart_dict)
+
 
 class BarChartView(APIView):
     def get(self, request, *arg, **kwargs):
@@ -293,6 +340,22 @@ class BarChartView(APIView):
 #             "humidity": [item.get("humidity") for item in ser.data],
 #         }
 #         return Response(barchart_dict)
+
+
+class WindRoseChartView(APIView):
+    filter_backends = [LineChartSearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
+        queryset = SensorData.objects.all()
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        ser = WindRoseChartDataSerializer(instance=self.get_queryset(), many=True)
+        linechart_dict = group_by_station_wind_rose(ser, "wind_direction")
+        return Response(linechart_dict)
 
 
 class FakeData(APIView):

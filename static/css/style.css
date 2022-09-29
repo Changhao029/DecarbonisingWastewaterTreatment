@@ -152,6 +152,7 @@ select {
 }
 
 .button-container {
+  margin-top: 20px;
   display: flex;
   flex-flow: wrap;
   gap: 25px;
@@ -195,4 +196,14 @@ select {
 
 #at-a-glance {
   background-image: linear-gradient(to right, #7f7ffab9, #4d4dff);
+}
+
+#Pressure {
+  background-image: linear-gradient(to right, #5B7F4A, #5EDA23);
+}
+#Solar_Radiation {
+  background-image: linear-gradient(to right, #B5BF63, #D7EF17);
+}
+#Wind_Rose {
+  background-image: linear-gradient(to right, #31A34B, #1EE34B);
 }

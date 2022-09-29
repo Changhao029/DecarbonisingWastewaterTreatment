@@ -50,6 +50,13 @@ class SolarRadiationLineChartDataSerializer(serializers.ModelSerializer):
         fields = ["station", "sensor_datetime", "solar_radiation"]
 
 
+class WindRoseChartDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SensorData
+        fields = ["station", "wind_direction"]
+
+
 class BarChartDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = SensorData
