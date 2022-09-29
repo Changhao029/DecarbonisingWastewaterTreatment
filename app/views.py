@@ -257,9 +257,18 @@ class SolarRadiationLineChartView(ListAPIView):
 
 
 class rainfall_BarChartView(APIView):
-    def get(self, request, *arg, **kwargs):
+    filter_backends = [LineChartSearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
         queryset = SensorData.objects.all()
-        ser = BarChartDataSerializer(instance=queryset, many=True)
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
+    def get(self, request, *arg, **kwargs):
+        # queryset = SensorData.objects.all()[0:100000]
+        ser = BarChartDataSerializer(instance=self.get_queryset(), many=True)
         rainfall_total = dict()
         # rainfall_l = list()
         # humidity_l = list()
@@ -291,9 +300,18 @@ class rainfall_BarChartView(APIView):
 
 
 class humidity_BarChartView(APIView):
-    def get(self, request, *arg, **kwargs):
+    filter_backends = [LineChartSearchFilterBackend, ]
+
+    def get_queryset(self):
+        """Return the last five published polls."""
         queryset = SensorData.objects.all()
-        ser = BarChartDataSerializer(instance=queryset, many=True)
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+        return queryset
+
+    def get(self, request, *arg, **kwargs):
+        # queryset = SensorData.objects.all()[0:100000]
+        ser = BarChartDataSerializer(instance=self.get_queryset(), many=True)
         humidity_total = dict()
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
