@@ -86,8 +86,7 @@ select {
   font-weight: bold;
 }
 
-/* Navigation bar TOP Link styling */
-
+/* Navigation bar #top link styling */
 .top:link,
 .top:visited {
   color: #e9e9e9;
@@ -98,7 +97,7 @@ select {
   text-shadow: 2px 2px 5px black;
 }
 
-/* Navigation bar Link styling */
+/* Navigation bar link styling */
 .navibar-link:link,
 .navibar-link:visited {
   color: #b8b8b8;
@@ -180,6 +179,7 @@ select {
   box-shadow: 2.5px 5px 9px gray;
 }
 
+/* Data Centre Buttons */
 #overview {
   background-image: linear-gradient(to right, #7efcfcb4, #53ffff);
 }
