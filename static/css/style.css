@@ -204,3 +204,6 @@ select {
 #Solar_Radiation {
   background-image: linear-gradient(to right, #B5BF63, #D7EF17);
 }
+#Wind_Rose {
+  background-image: linear-gradient(to right, #31A34B, #1EE34B);
+}

@@ -3,6 +3,8 @@ import time
 from abc import ABC
 from datetime import datetime
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.gzip import gzip_page
 from rest_framework.request import Request
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -185,8 +187,7 @@ class LineChartSearchFilterBackend(BaseFilterBackend):
         return queryset[0:10000]
 
 
-
-
+@method_decorator(gzip_page, name='dispatch')
 class TemperatureLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -203,6 +204,7 @@ class TemperatureLineChartView(ListAPIView):
             return Response(linechart_dict)
 
 
+@method_decorator(gzip_page, name='dispatch')
 class WindSpeedLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -219,6 +221,7 @@ class WindSpeedLineChartView(ListAPIView):
             return Response(linechart_dict)
 
 
+@method_decorator(gzip_page, name='dispatch')
 class PressureLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -235,6 +238,7 @@ class PressureLineChartView(ListAPIView):
             return Response(linechart_dict)
 
 
+@method_decorator(gzip_page, name='dispatch')
 class SolarRadiationLineChartView(ListAPIView):
     filter_backends = [LineChartSearchFilterBackend, ]
 
@@ -249,6 +253,7 @@ class SolarRadiationLineChartView(ListAPIView):
             ser = SolarRadiationLineChartDataSerializer(instance=self.get_queryset(), many=True)
             linechart_dict = group_by_station(ser, "solar_radiation")
             return Response(linechart_dict)
+
 
 class BarChartView(APIView):
 
