@@ -56,6 +56,15 @@ function create_wind_rose_chart(data_result){
       top: 10,
       left: 10
     },
+    toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            },
+    },
     tooltip: {
       trigger: 'item'
     },

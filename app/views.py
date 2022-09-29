@@ -313,6 +313,7 @@ class humidity_BarChartView(APIView):
         # queryset = SensorData.objects.all()[0:100000]
         ser = BarChartDataSerializer(instance=self.get_queryset(), many=True)
         humidity_total = dict()
+        humidity_total_result = dict()
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
             key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
@@ -320,10 +321,13 @@ class humidity_BarChartView(APIView):
             if h_value_id is None:
                 h_value_id = 0
             if key_id not in humidity_total:
-                humidity_total[key_id] = float(h_value_id)
-            humidity_total[key_id] += float(h_value_id)
-        sorted(humidity_total)
-        return Response(humidity_total)
+                humidity_total[key_id] = [float(h_value_id), 1]
+            humidity_total[key_id][0] += float(h_value_id)
+            humidity_total[key_id][1] += 1
+        for k,v in humidity_total.items():
+            humidity_total_result[k] = v[0]/v[1]
+        sorted(humidity_total_result)
+        return Response(humidity_total_result)
 
 # class BarChartView(APIView):
 #

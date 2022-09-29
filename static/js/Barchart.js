@@ -20,8 +20,17 @@ function barchart(r_data, id, name, scale) {
     option = {
         title: {
             text: name,
-            left: 'center',
+            left: 'left',
             top: 10
+        },
+        toolbox: {
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                restore: {},
+                saveAsImage: {}
+            },
         },
         xAxis: {
             name: 'each day',
@@ -43,6 +52,21 @@ function barchart(r_data, id, name, scale) {
         series: [
             {
                 data: r_data,
+                itemStyle: {
+							normal: {
+								label: {
+									show: true,
+									position: 'top',
+									textStyle: {
+										color: 'black',
+										fontSize: 16
+									},
+									formatter: (params) => {
+                                        return params.value.toFixed(2);
+                                    },
+								}
+							}
+				},
                 type: 'bar',
                 showBackground: true,
                 backgroundStyle: {
@@ -90,7 +114,7 @@ function chart3_time_range(){
         for (let key in data) {
             value_r.unshift(data[key]);
         }
-        barchart(value_r, "container3", "Rainfall Chart")
+        barchart(value_r, "container3", "Rainfall Chart", "mm")
     });
 
 }
@@ -106,6 +130,6 @@ function chart4_time_range(){
         for (let key in data) {
             value_h.unshift(data[key]);
         }
-        barchart(value_h, "container4", "Humidity Chart")
+        barchart(value_h, "container4", "Humidity Chart", "%")
     });
 }
