@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8" />
     <title>Decarbonising Wastewater Treatment</title>
@@ -67,47 +67,176 @@
 
       <div class="inner-content">
         <div class="button-container">
-          <div class="button" id="overview">
-            <span class="material-symbols-outlined"> insert_chart </span> &nbsp;
-            GAS EMISSION OVERVIEW
-          </div>
+          <a href="#container1" style="text-decoration:none;">
+            <div class="button" id="overview">
+              <span class="material-symbols-outlined"> insert_chart </span> &nbsp;
+              Temperature Chart
+            </div>
+          </a>
 
-          <div class="button" id="realtime-data">
-            <span class="material-symbols-outlined"> query_stats </span> &nbsp;
-            REAL TIME DATA
-          </div>
+          <a href="#container2" style="text-decoration:none;">
+            <div class="button" id="realtime-data">
+              <span class="material-symbols-outlined"> query_stats </span> &nbsp;
+              Wind Speed Chart
+            </div>
+          </a>
 
-          <div class="button" id="share-of-gas">
-            <span class="material-symbols-outlined"> pie_chart </span> &nbsp;
-            SHARE OF EMISSION GAS
-          </div>
+          <a href="#container3" style="text-decoration:none;">
+            <div class="button" id="share-of-gas">
+              <span class="material-symbols-outlined"> pie_chart </span> &nbsp;
+              Rainfall Chart
+            </div>
+          </a>
 
-          <div class="button" id="at-a-glance">
-            <span class="material-symbols-outlined"> preview </span> &nbsp;
-            EMISSIONS AT A GLANCE
-          </div>
+          <a href="#container4" style="text-decoration:none;">
+            <div class="button" id="at-a-glance">
+              <span class="material-symbols-outlined"> preview </span> &nbsp;
+              Humidity Chart
+            </div>
+          </a>
+        </div>
+
+        <div class="button-container">
+          <a href="#container5" style="text-decoration:none;">
+            <div class="button" id="Pressure">
+              <span class="material-symbols-outlined"> preview </span> &nbsp;
+              Pressure Chart
+            </div>
+          </a>
+
+          <a href="#container6" style="text-decoration:none;">
+            <div class="button" id="Solar_Radiation">
+              <span class="material-symbols-outlined"> preview </span> &nbsp;
+              Solar Radiation Chart
+            </div>
+          </a>
+
+          <a href="#container7" style="text-decoration:none;">
+            <div class="button" id="Wind_Rose">
+              <span class="material-symbols-outlined"> preview </span> &nbsp;
+              Wind Direction Rose Chart
+            </div>
+          </a>
         </div>
 
         <br />
 
         <div class="data-display">
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart1_start_time">
+
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart1_end_time">
+            </div>
+            <div class="chart1_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart1_time_range()" value="Query" />
+            </div>
+          </form>
           <div id="chart1">
             <div id="container1"></div>
           </div>
+
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart2_start_time">
+
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart2_end_time">
+            </div>
+
+            <div class="chart2_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart2_time_range()" value="Query" />
+            </div>
+          </form>
           <div id="chart2">
             <div id="container2"></div>
           </div>
+
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart3_start_time">
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart3_end_time">
+            </div>
+          
+            <div class="chart3_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart3_time_range()" value="Query" />
+            </div>
+          </form>
           <div id="chart3">
             <div id="container3"></div>
           </div>
+
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart4_start_time">
+
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart4_end_time">
+            </div>
+
+            <div class="chart4_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart4_time_range()" value="Query" />
+            </div>
+          </form>
           <div id="chart4">
             <div id="container4"></div>
           </div>
+
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart5_start_time">
+
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart5_end_time">
+            </div>
+
+            <div class="chart5_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart5_time_range()" value="Query" />
+            </div>
+          </form>
           <div id="chart5">
             <div id="container5"></div>
           </div>
+
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart6_start_time">
+
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart6_end_time">
+            </div>
+            
+            <div class="chart6_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart6_time_range()" value="Query" />
+            </div>
+          </form>
           <div id="chart6">
             <div id="container6"></div>
+          </div>
+
+          <form class="time_range_query">
+            <div class="time_range_input">
+              <label for="">from:</label>
+              <input type="datetime-local" id="chart7_start_time">
+
+              <label for="">to:</label>
+              <input type="datetime-local" id="chart7_end_time">
+            </div>
+
+            <div class="chart7_time_range_div">
+              <input type="button" class="time_range_button" onclick="chart7_time_range()" value="Query" />
+            </div>
+          </form>
+          <div id="chart7">
+            <div id="container7"></div>
           </div>
         </div>
       </div>
@@ -123,3 +252,5 @@
 <script src="js/ecStat.min.js"></script>
 <script type="text/javascript" src="js/linechart.js"></script>
 <script src="js/Barchart.js"></script>
+<script src="js/wind_rose_chart.js"></script>
+

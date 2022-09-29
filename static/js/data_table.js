@@ -22,19 +22,12 @@ $(document).ready(function(){
             temp_tr. innerHTML = '<td>' + temp_data[i]["id"] + '</td>'
                                 + '<td>' + temp_data[i]["sensor_datetime"] + '</td>'
                                 + '<td>' + temp_data[i]["rainfall"] + '</td>'
-                                + '<td>' + temp_data[i]["rainfall_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["temperature"] + '</td>'
-                                + '<td>' + temp_data[i]["temperature_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["humidity"] + '</td>'
-                                + '<td>' + temp_data[i]["humidity_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["wind_direction"] + '</td>'
-                                + '<td>' + temp_data[i]["wind_direction_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["wind_speed"] + '</td>'
-                                + '<td>' + temp_data[i]["wind_speed_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["pressure"] + '</td>'
-                                + '<td>' + temp_data[i]["pressure_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["solar_radiation"] + '</td>'
-                                + '<td>' + temp_data[i]["solar_radiation_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["station"] + '</td>';
             data_tbody.appendChild(temp_tr)
         }
@@ -59,19 +52,12 @@ function pre_page(){
                 temp_tr. innerHTML = '<td>' + temp_data[i]["id"] + '</td>'
                                     + '<td>' + temp_data[i]["sensor_datetime"] + '</td>'
                                     + '<td>' + temp_data[i]["rainfall"] + '</td>'
-                                    + '<td>' + temp_data[i]["rainfall_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["temperature"] + '</td>'
-                                    + '<td>' + temp_data[i]["temperature_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["humidity"] + '</td>'
-                                    + '<td>' + temp_data[i]["humidity_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["wind_direction"] + '</td>'
-                                    + '<td>' + temp_data[i]["wind_direction_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["wind_speed"] + '</td>'
-                                    + '<td>' + temp_data[i]["wind_speed_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["pressure"] + '</td>'
-                                    + '<td>' + temp_data[i]["pressure_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["solar_radiation"] + '</td>'
-                                    + '<td>' + temp_data[i]["solar_radiation_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["station"] + '</td>';
                 data_tbody.appendChild(temp_tr)
             }
@@ -95,19 +81,12 @@ function next_page(){
                 temp_tr. innerHTML = '<td>' + temp_data[i]["id"] + '</td>'
                                     + '<td>' + temp_data[i]["sensor_datetime"] + '</td>'
                                     + '<td>' + temp_data[i]["rainfall"] + '</td>'
-                                    + '<td>' + temp_data[i]["rainfall_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["temperature"] + '</td>'
-                                    + '<td>' + temp_data[i]["temperature_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["humidity"] + '</td>'
-                                    + '<td>' + temp_data[i]["humidity_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["wind_direction"] + '</td>'
-                                    + '<td>' + temp_data[i]["wind_direction_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["wind_speed"] + '</td>'
-                                    + '<td>' + temp_data[i]["wind_speed_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["pressure"] + '</td>'
-                                    + '<td>' + temp_data[i]["pressure_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["solar_radiation"] + '</td>'
-                                    + '<td>' + temp_data[i]["solar_radiation_quality"] + '</td>'
                                     + '<td>' + temp_data[i]["station"] + '</td>';
                 data_tbody.appendChild(temp_tr)
             }
@@ -119,6 +98,9 @@ function next_page(){
 function query_data(){
     var query_id = document.getElementById("query_id").value;
     var query_station = document.getElementById("query_station").value;
+    var start_time = document.getElementById("start_time").value;
+    var end_time = document.getElementById("end_time").value;
+//    console.log(start_time, end_time)
     condition_dict = new Array()
     condition_str = ""
     if (query_id){
@@ -126,6 +108,10 @@ function query_data(){
     }
     if (query_station){
         condition_dict["station"] = query_station
+    }
+    if ((start_time && end_time) && (end_time >= start_time)){
+        condition_dict["start_time"] = start_time
+        condition_dict["end_time"] = end_time
     }
     for (var key in condition_dict){
         condition_str = condition_str + key + "=" + condition_dict[key] + "&"
@@ -154,19 +140,12 @@ function query_data(){
             temp_tr. innerHTML = '<td>' + temp_data[i]["id"] + '</td>'
                                 + '<td>' + temp_data[i]["sensor_datetime"] + '</td>'
                                 + '<td>' + temp_data[i]["rainfall"] + '</td>'
-                                + '<td>' + temp_data[i]["rainfall_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["temperature"] + '</td>'
-                                + '<td>' + temp_data[i]["temperature_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["humidity"] + '</td>'
-                                + '<td>' + temp_data[i]["humidity_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["wind_direction"] + '</td>'
-                                + '<td>' + temp_data[i]["wind_direction_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["wind_speed"] + '</td>'
-                                + '<td>' + temp_data[i]["wind_speed_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["pressure"] + '</td>'
-                                + '<td>' + temp_data[i]["pressure_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["solar_radiation"] + '</td>'
-                                + '<td>' + temp_data[i]["solar_radiation_quality"] + '</td>'
                                 + '<td>' + temp_data[i]["station"] + '</td>';
             data_tbody.appendChild(temp_tr)
         }
@@ -185,6 +164,5 @@ function download_data(){
         document.body.appendChild(aLink)
         aLink.click()
         document.body.removeChild(aLink);
-
     });
 }

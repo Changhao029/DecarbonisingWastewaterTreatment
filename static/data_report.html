@@ -84,6 +84,13 @@
             name="query_station"
             placeholder="query by station"
           />
+
+          <label for="">from:</label>
+          <input type="datetime-local" id="start_time">
+
+          <label for="">to:</label>
+          <input type="datetime-local" id="end_time">
+
           <div class="query_download_div">
             <input
               type="button"
@@ -103,32 +110,26 @@
         <div class="data-display">
           <div id="table">
             <table class="table table-bordered" id="data_table">
-              <caption>
-                data table
-              </caption>
-              <thead>
-                <tr>
-                  <th>id</th>
-                  <th>sensor datetime</th>
-                  <th>rainfall</th>
-                  <th>rainfall quality</th>
-                  <th>temperature</th>
-                  <th>temperature quality</th>
-                  <th>humidity</th>
-                  <th>humidity quality</th>
-                  <th>wind direction</th>
-                  <th>wind direction_quality</th>
-                  <th>wind speed</th>
-                  <th>wind speed_quality</th>
-                  <th>pressure</th>
-                  <th>pressure quality</th>
-                  <th>solar radiation</th>
-                  <th>solar radiation quality</th>
-                  <th>station</th>
-                </tr>
-              </thead>
-              <tbody id="data_tbody"></tbody>
-            </table>
+                <caption>data table</caption>
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>sensor datetime</th>
+                    <th>rainfall</th>
+                    <th>temperature</th>
+                    <th>humidity</th>
+                    <th>wind direction</th>
+                    <th>wind speed</th>
+                    <th>pressure</th>
+                    <th>solar radiation</th>
+                    <th>station</th>
+                  </tr>
+                </thead>
+                <tbody id="data_tbody">
+
+                </tbody>
+              </table>
+
 
             <ul class="pagination" style="margin: 20px 0">
               <li class="page-item" onclick="pre_page()">
