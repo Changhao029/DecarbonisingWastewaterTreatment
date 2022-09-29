@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import re_path
 from app import views
 
-
 urlpatterns = [
     re_path('admin/', admin.site.urls),
     re_path(r'^datatable/', views.DataTable.as_view()),
@@ -28,7 +27,8 @@ urlpatterns = [
     re_path(r'^windspeedlinechart/$', views.WindSpeedLineChartView.as_view()),
     re_path(r'^pressurelinechart/$', views.PressureLineChartView.as_view()),
     re_path(r'^solarradiationlinechart/$', views.SolarRadiationLineChartView.as_view()),
-    re_path(r'^barchart/$', views.BarChartView.as_view()),
+    re_path(r'^rainfall_BarChart/$', views.rainfall_BarChartView.as_view()),
+    re_path(r'^humidity_BarChart/$', views.humidity_BarChartView.as_view()),
     re_path(r'^windrose/$', views.WindRoseChartView.as_view()),
     re_path(r'^fakedata/$', views.FakeData.as_view()),
     re_path(r'^download/', views.Download.as_view()),

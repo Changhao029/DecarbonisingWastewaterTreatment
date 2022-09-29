@@ -59,7 +59,6 @@ def group_by_station(ser, data_name):
     return linechart_dict
 
 
-
 def group_by_station_wind_rose(ser, data_name):
     result = dict()
     max_value = 0
@@ -67,7 +66,7 @@ def group_by_station_wind_rose(ser, data_name):
     windrose_dict = dict()
     for i in range(0, 5):
         # 'N', 'WN', 'W', 'SW', 'S', 'ES', 'E', 'NE'
-        windrose_dict["23182" + str(i+4) + "A"] = list([0, 0, 0, 0, 0, 0, 0, 0])
+        windrose_dict["23182" + str(i + 4) + "A"] = list([0, 0, 0, 0, 0, 0, 0, 0])
 
     for item in ser.data:
         station_str = item.get("station")
@@ -257,47 +256,56 @@ class SolarRadiationLineChartView(ListAPIView):
         return Response(linechart_dict)
 
 
-class BarChartView(APIView):
+class rainfall_BarChartView(APIView):
     def get(self, request, *arg, **kwargs):
         queryset = SensorData.objects.all()
         ser = BarChartDataSerializer(instance=queryset, many=True)
         rainfall_total = dict()
-        humidity_total = dict()
         # rainfall_l = list()
         # humidity_l = list()
-        final_dataset = list()
-        id_l = list()
-
-        for i, item in enumerate(ser.data):
+        # final_dataset = list()
+        # id_l = list()
+        for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
-            key_id = date_t.year*372 + date_t.month*31 + date_t.day
-            id_l.append(i)
+            key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            # id_l.append(i)
             # print(key_id)
             r_value_id = item.get("rainfall")
-            h_value_id = item.get("humidity")
             # print(value_id)
             if r_value_id is None:
                 r_value_id = 0
-            if h_value_id is None:
-                h_value_id = 0
             if key_id not in rainfall_total:
                 rainfall_total[key_id] = float(r_value_id)
             rainfall_total[key_id] += float(r_value_id)
-            if key_id not in humidity_total:
-                humidity_total[key_id] = float(h_value_id)
-            humidity_total[key_id] += float(h_value_id)
         sorted(rainfall_total)
-        sorted(humidity_total)
         # for rainfall in rainfall_total:
         #     # print(rainfall_total[rainfall])
         #     rainfall_l.append(rainfall_total[rainfall])
         # for humidity in humidity_total:
         #     # print(humidity_total[humidity])
         #     humidity_l.append(humidity_total[humidity])
-        final_dataset.append(rainfall_total)
-        final_dataset.append(humidity_total)
+        # final_dataset.append(rainfall_total)
+        # final_dataset.append(humidity_total)
         # # print(final_dataset)
-        return Response(final_dataset)
+        return Response(rainfall_total)
+
+
+class humidity_BarChartView(APIView):
+    def get(self, request, *arg, **kwargs):
+        queryset = SensorData.objects.all()
+        ser = BarChartDataSerializer(instance=queryset, many=True)
+        humidity_total = dict()
+        for item in ser.data:
+            date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
+            key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            h_value_id = item.get("humidity")
+            if h_value_id is None:
+                h_value_id = 0
+            if key_id not in humidity_total:
+                humidity_total[key_id] = float(h_value_id)
+            humidity_total[key_id] += float(h_value_id)
+        sorted(humidity_total)
+        return Response(humidity_total)
 
 # class BarChartView(APIView):
 #
