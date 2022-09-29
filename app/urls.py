@@ -29,6 +29,7 @@ urlpatterns = [
     re_path(r'^pressurelinechart/$', views.PressureLineChartView.as_view()),
     re_path(r'^solarradiationlinechart/$', views.SolarRadiationLineChartView.as_view()),
     re_path(r'^barchart/$', views.BarChartView.as_view()),
+    re_path(r'^windrose/$', views.WindRoseChartView.as_view()),
     re_path(r'^fakedata/$', views.FakeData.as_view()),
     re_path(r'^download/', views.Download.as_view()),
 
