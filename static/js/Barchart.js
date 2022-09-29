@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $.get('http://127.0.0.1:50003/barchart', function (data) {
+    $.get('http://13.54.55.200/barchart', function (data) {
         barchart(data['rainfall'],"container3","Rainfall Barchart")
         barchart(data['humidity'],"container4","Humidity Barchart")
     })
@@ -38,6 +38,15 @@ $(document).ready(function(){
                 text: name,
                 left: 'center',
                 top: 10
+            },
+            toolbox: {
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    restore: {},
+                    saveAsImage: {}
+                }
             },
             color: ['rgb(25, 183, 207)'],
             grid: {top: 80, containLabel: true},
