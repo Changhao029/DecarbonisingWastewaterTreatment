@@ -157,12 +157,18 @@ function query_data(){
 function download_data(){
     console.log(condition_str)
     download_query_url = "http://127.0.0.1:50003/download/?" + condition_str
-    $.get(download_query_url,function(data_result,status){
-        const aLink = document.createElement('a')
-        aLink.href = download_query_url
-        aLink.setAttribute('download', "test" )
-        document.body.appendChild(aLink)
-        aLink.click()
-        document.body.removeChild(aLink);
-    });
+//    $.get(download_query_url,function(data_result,status){
+//        const aLink = document.createElement('a')
+//        aLink.href = download_query_url
+//        aLink.setAttribute('download', "test" )
+//        document.body.appendChild(aLink)
+//        aLink.click()
+//        document.body.removeChild(aLink);
+//    });
+    const aLink = document.createElement('a')
+    aLink.href = download_query_url
+    aLink.setAttribute('download', "test" )
+    document.body.appendChild(aLink)
+    aLink.click()
+    document.body.removeChild(aLink);
 }

@@ -329,48 +329,6 @@ class humidity_BarChartView(APIView):
         sorted(humidity_total_result)
         return Response(humidity_total_result)
 
-# class BarChartView(APIView):
-#
-#     def get(self, request, *arg, **kwargs):
-#         queryset = SensorData.objects.all()[0:1000]
-#         ser = BarChartDataSerializer(instance=queryset, many=True)
-#         month_list = {"Nov": [0, 0], "Dec": [0, 0], "Jan": [0, 0], "Feb": [0, 0]}
-#         for item in ser.data:
-#             per_month = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ").month
-#             if per_month == 11:
-#                 if item.get('rainfall') is not None:
-#                     month_list['Nov'][0] += float(item.get("rainfall"))
-#                 if item.get('humidity') is not None:
-#                     month_list['Nov'][1] += float(item.get("humidity"))
-#             if per_month == 12:
-#                 if item.get('rainfall') is not None:
-#                     month_list['Dec'][0] += float(item.get("rainfall"))
-#                 if item.get('humidity') is not None:
-#                     month_list['Dec'][1] += float(item.get("humidity"))
-#             if per_month == 1:
-#                 if item.get('rainfall') is not None:
-#                     month_list['Jan'][0] += float(item.get("rainfall"))
-#                 if item.get('humidity') is not None:
-#                     month_list['Jan'][1] += float(item.get("humidity"))
-#             if per_month == 2:
-#                 if item.get('rainfall') is not None:
-#                     month_list['Feb'][0] += float(item.get("rainfall"))
-#                 if item.get('humidity') is not None:
-#                     month_list['Feb'][1] += float(item.get("humidity"))
-#         return Response(month_list)
-
-
-# class BarChartView(APIView):
-#
-#     def get(self, request, *arg, **kwargs):
-#         queryset = SensorData.objects.all()[0:10000]
-#         ser = BarChartDataSerializer(instance=queryset, many=True)
-#         barchart_dict = {
-#             "rainfall": [item.get("rainfall") for item in ser.data],
-#             "humidity": [item.get("humidity") for item in ser.data],
-#         }
-#         return Response(barchart_dict)
-
 
 class WindRoseChartView(APIView):
     filter_backends = [LineChartSearchFilterBackend, ]
