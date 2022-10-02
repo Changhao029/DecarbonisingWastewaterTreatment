@@ -100,6 +100,6 @@ Run server
 Import the test data in the database.
 Open another terminal and type the command:
 
-`curl 127.0.0.1:50003/fakedata/`
+`curl -X POST 127.0.0.1:50003/fakedata/`
 
 Then you can open the html page in the static directory with any browser.
