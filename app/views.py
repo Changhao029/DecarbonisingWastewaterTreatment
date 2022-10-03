@@ -458,9 +458,12 @@ class WindRoseChartView(APIView):
         return queryset
 
     def get(self, request, *args, **kwargs):
+        start_time = self.get_queryset()[0].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        end_time = self.get_queryset()[len(self.get_queryset())-1].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+
         ser = WindRoseChartDataSerializer(instance=self.get_queryset(), many=True)
         linechart_dict = group_by_station_wind_rose(ser, "wind_speed", "wind_direction", len(self.get_queryset()))
-        return Response(linechart_dict)
+        return Response({"data": linechart_dict, "start_time": start_time, "end_time": end_time})
 
 
 class FakeData(APIView):
