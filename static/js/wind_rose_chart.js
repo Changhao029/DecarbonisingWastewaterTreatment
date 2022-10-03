@@ -30,33 +30,17 @@ function create_wind_rose_url(){
 }
 
 function create_wind_rose_chart(data_result){
-  function load_data(){
-    var series = [];
-    for (var i = 1; i <= 5; i++) {
-      series.push({
-        type: 'radar',
-        symbol: 'none',
-        lineStyle: {
-          width: 1
-        },
-        emphasis: {
-          areaStyle: {
-            color: 'rgba(0,250,0,0.3)'
-          }
-        },
-        data: data_result["data_result"]
-      });
-    }
-    return series
-  }
-
   option7 = {
-    title: {
-      text: 'Wind Direction Chart',
-      top: 10,
-      left: 10
-    },
-    toolbox: {
+      "title": {
+          "text": "Wind Speed and Wind Direction Rose Chart",
+          "left": "left",
+          "top": "10"
+      },
+      grid:{
+               x:600,
+               y:600,
+      },
+      toolbox: {
             feature: {
                 dataZoom: {
                     yAxisIndex: 'none'
@@ -64,29 +48,92 @@ function create_wind_rose_chart(data_result){
                 restore: {},
                 saveAsImage: {}
             },
-    },
-    tooltip: {
-      trigger: 'item'
-    },
-    legend: {
-      type: 'scroll',
-      bottom: 10,
-      data:["231824A","231825A","231826A","231827A","231828A"]
-    },
-    radar: {
-      indicator: [
-        { text: 'N', max: data_result["max_value"], axisLabel: { show: true, fontWeight: 'bolder' }},
-        { text: 'WN', max: data_result["max_value"]},
-        { text: 'W', max: data_result["max_value"]},
-        { text: 'SW', max: data_result["max_value"]},
-        { text: 'S', max: data_result["max_value"]},
-        { text: 'ES', max: data_result["max_value"]},
-        { text: 'E', max: data_result["max_value"]},
-        { text: 'NE', max: data_result["max_value"]}
-      ]
-    },
-    series: load_data()
-  };
+      },
+      "legend": {
+          "show": true,
+          "top": "30",
+          "right": "right",
+          "data": ["<1(m/s)", "1-2(m/s)", "2-4(m/s)", "4-6(m/s)", "6-8(m/s)", "8-10(m/s)", ">10(m/s)"],
+          "orient": "vertical"
+      },
+      "tooltip": {
+          "formatter": "{a}<br/>{b}：{c}%"
+      },
+      "color": ["#1E98E3", "#1EE3D4", "#1EE363", "#AAE31E", "#E3CB1E", "#E3981E", "#E3511E"],
+      "angleAxis": {
+          "type": "category",
+          "data": ["N", "NW", "W", "SW", "S", "SE", "E", "NE"],
+          "z": 0,
+          "boundaryGap": false,
+          "splitLine": {
+              "show": true,
+              "lineStyle": {
+                  "color": "#ddd",
+                  "type": "solid",
+                  "width":2
+              }
+          },
+          "axisLine": {
+              "show": false
+          }
+      },
+      "radiusAxis": {
+          "name": "frequency(%)",
+          "nameLocation": "middle",
+          splitArea: {
+              show: true,
+              areaStyle: {
+                  color: ["rgba(0,0,0,.01)", "rgba(0,0,0,.2)"]
+              },
+               "width":2
+
+          },
+      },
+      "polar": {},
+      "series": [{
+          "type": "bar",
+          "data": data_result[0],
+          "coordinateSystem": "polar",
+          "name": "<1(m/s)",
+          "stack": "a"
+      }, {
+          "type": "bar",
+          "data": data_result[1],
+          "coordinateSystem": "polar",
+          "name": "1-2(m/s)",
+          "stack": "a"
+      }, {
+          "type": "bar",
+          "data": data_result[2],
+          "coordinateSystem": "polar",
+          "name": "2-4(m/s)",
+          "stack": "a"
+      }, {
+          "type": "bar",
+          "data": data_result[3],
+          "coordinateSystem": "polar",
+          "name": "4-6(m/s)",
+          "stack": "a"
+      }, {
+          "type": "bar",
+          "data": data_result[4],
+          "coordinateSystem": "polar",
+          "name": "6-8(m/s)",
+          "stack": "a"
+      }, {
+          "type": "bar",
+          "data": data_result[5],
+          "coordinateSystem": "polar",
+          "name": "8-10(m/s)",
+          "stack": "a"
+      }, {
+          "type": "bar",
+          "data": data_result[6],
+          "coordinateSystem": "polar",
+          "name": ">10(m/s)",
+          "stack": "a"
+      }]
+    };
 
   if (option7 && typeof option7 === 'object') {
     myChart7.setOption(option7);
