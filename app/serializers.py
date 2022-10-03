@@ -54,7 +54,7 @@ class WindRoseChartDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SensorData
-        fields = ["station", "wind_direction"]
+        fields = ["station", "wind_direction", "wind_speed"]
 
 
 class BarChartDataSerializer(serializers.ModelSerializer):
