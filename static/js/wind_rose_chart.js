@@ -34,7 +34,8 @@ function create_wind_rose_chart(data_result){
       "title": {
           "text": "Wind Speed and Wind Direction Rose Chart",
           "left": "left",
-          "top": "10"
+          "top": "10",
+           subtext: "from " + data_result["start_time"] + " to " + data_result["end_time"]
       },
       grid:{
                x:600,
@@ -92,43 +93,43 @@ function create_wind_rose_chart(data_result){
       "polar": {},
       "series": [{
           "type": "bar",
-          "data": data_result[0],
+          "data": data_result["data"][0],
           "coordinateSystem": "polar",
           "name": "<1(m/s)",
           "stack": "a"
       }, {
           "type": "bar",
-          "data": data_result[1],
+          "data": data_result["data"][1],
           "coordinateSystem": "polar",
           "name": "1-2(m/s)",
           "stack": "a"
       }, {
           "type": "bar",
-          "data": data_result[2],
+          "data": data_result["data"][2],
           "coordinateSystem": "polar",
           "name": "2-4(m/s)",
           "stack": "a"
       }, {
           "type": "bar",
-          "data": data_result[3],
+          "data": data_result["data"][3],
           "coordinateSystem": "polar",
           "name": "4-6(m/s)",
           "stack": "a"
       }, {
           "type": "bar",
-          "data": data_result[4],
+          "data": data_result["data"][4],
           "coordinateSystem": "polar",
           "name": "6-8(m/s)",
           "stack": "a"
       }, {
           "type": "bar",
-          "data": data_result[5],
+          "data": data_result["data"][5],
           "coordinateSystem": "polar",
           "name": "8-10(m/s)",
           "stack": "a"
       }, {
           "type": "bar",
-          "data": data_result[6],
+          "data": data_result["data"][6],
           "coordinateSystem": "polar",
           "name": ">10(m/s)",
           "stack": "a"
