@@ -320,7 +320,7 @@ class LineChartSearchFilterBackend(BaseFilterBackend):
             del query_condition["end_time"]
             queryset = queryset.filter(sensor_datetime__range=[start_time, end_time])
             return queryset
-        return queryset[0:10000]
+        return queryset[0:30000]
 
 
 @method_decorator(gzip_page, name='dispatch')
@@ -407,12 +407,14 @@ class rainfall_BarChartView(APIView):
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
             key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            day = "{year}/{month}/{day}".format(year=date_t.year, month=date_t.month, day=date_t.day)
             r_value_id = item.get("rainfall")
             if r_value_id is None:
                 r_value_id = 0
             if key_id not in rainfall_total:
-                rainfall_total[key_id] = float(r_value_id)
-            rainfall_total[key_id] += float(r_value_id)
+                rainfall_total[key_id] = [float(r_value_id), '']
+                rainfall_total[key_id][1] = day
+            rainfall_total[key_id][0] += float(r_value_id)
         sorted(rainfall_total)
         return Response(rainfall_total)
 
@@ -434,15 +436,17 @@ class humidity_BarChartView(APIView):
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
             key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            day = "{year}/{month}/{day}".format(year=date_t.year, month=date_t.month, day=date_t.day)
             h_value_id = item.get("humidity")
             if h_value_id is None:
                 h_value_id = 0
             if key_id not in humidity_total:
-                humidity_total[key_id] = [float(h_value_id), 1]
+                humidity_total[key_id] = [float(h_value_id), 1, '']
+                humidity_total[key_id][2] = day
             humidity_total[key_id][0] += float(h_value_id)
             humidity_total[key_id][1] += 1
         for k,v in humidity_total.items():
-            humidity_total_result[k] = v[0]/v[1]
+            humidity_total_result[k] = [v[0]/v[1], v[2]]
         sorted(humidity_total_result)
         return Response(humidity_total_result)
 

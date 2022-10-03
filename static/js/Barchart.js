@@ -1,21 +1,33 @@
 $(document).ready(function () {
     $.get('http://127.0.0.1:50003/rainfall_BarChart/', function (data) {
         let value_r = [];
+        let time_range = [];
         for (let key in data) {
             value_r.unshift(data[key]);
         }
-        barchart(value_r, "container3", "Rainfall Chart", "mm")
+        for (let time in value_r){
+            time_range.unshift(value_r[time][1])
+        };
+        let start_t = time_range[0]
+        let end_t = time_range.pop()
+        barchart(value_r, start_t, end_t,"container3", "Rainfall Chart", "mm")
     })
     $.get('http://127.0.0.1:50003/humidity_BarChart/', function (data) {
         let value_h = [];
+        let time_range = [];
         for (let key in data) {
             value_h.unshift(data[key]);
         }
-        barchart(value_h, "container4", "Humidity Chart", "%")
+        for (let time in value_h){
+            time_range.unshift(value_h[time][1])
+        };
+        let start_t = time_range[0]
+        let end_t = time_range.pop()
+        barchart(value_h, start_t, end_t, "container4", "Humidity Chart", "%")
     })
 })
 
-function barchart(r_data, id, name, scale) {
+function barchart(r_data, star_t, end_t, id, name, scale) {
     var BarChart = echarts.init(document.getElementById(id));
     option = {
         title: {
@@ -33,7 +45,7 @@ function barchart(r_data, id, name, scale) {
             },
         },
         xAxis: {
-            name: 'each day',
+            name: star_t +' to '+ end_t,
             type: 'category'
         },
         yAxis: {
