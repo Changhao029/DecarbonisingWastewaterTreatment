@@ -402,6 +402,9 @@ class rainfall_BarChartView(APIView):
         return queryset
 
     def get(self, request, *arg, **kwargs):
+        start_time = self.get_queryset()[0].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        end_time = self.get_queryset()[len(self.get_queryset()) - 1].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+
         ser = BarChartDataSerializer(instance=self.get_queryset(), many=True)
         rainfall_total = dict()
         for item in ser.data:
@@ -414,7 +417,7 @@ class rainfall_BarChartView(APIView):
                 rainfall_total[key_id] = float(r_value_id)
             rainfall_total[key_id] += float(r_value_id)
         sorted(rainfall_total)
-        return Response(rainfall_total)
+        return Response({"data": rainfall_total, "start_t": start_time, "end_t": end_time})
 
 
 class humidity_BarChartView(APIView):
@@ -428,6 +431,9 @@ class humidity_BarChartView(APIView):
         return queryset
 
     def get(self, request, *arg, **kwargs):
+        start_time = self.get_queryset()[0].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        end_time = self.get_queryset()[len(self.get_queryset()) - 1].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+
         ser = BarChartDataSerializer(instance=self.get_queryset(), many=True)
         humidity_total = dict()
         humidity_total_result = dict()
@@ -444,7 +450,8 @@ class humidity_BarChartView(APIView):
         for k,v in humidity_total.items():
             humidity_total_result[k] = v[0]/v[1]
         sorted(humidity_total_result)
-        return Response(humidity_total_result)
+        # return Response(humidity_total_result)
+        return Response({"data": humidity_total_result, "start_t": start_time, "end_t": end_time})
 
 
 class WindRoseChartView(APIView):

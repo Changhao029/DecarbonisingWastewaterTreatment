@@ -1,27 +1,31 @@
 $(document).ready(function () {
     $.get('http://127.0.0.1:50003/rainfall_BarChart/', function (data) {
         let value_r = [];
-        for (let key in data) {
-            value_r.unshift(data[key]);
+        for (let key in data["data"]) {
+            value_r.unshift(data["data"][key]);
         }
-        barchart(value_r, "container3", "Rainfall Chart", "mm")
+        barchart(value_r, "container3", "Rainfall Chart", "mm", data["start_t"], data["end_t"])
     })
     $.get('http://127.0.0.1:50003/humidity_BarChart/', function (data) {
         let value_h = [];
-        for (let key in data) {
-            value_h.unshift(data[key]);
+        for (let key in data["data"]) {
+            value_h.unshift(data["data"][key]);
         }
-        barchart(value_h, "container4", "Humidity Chart", "%")
+        barchart(value_h, "container4", "Humidity Chart", "%", data["start_t"], data["end_t"])
     })
 })
 
-function barchart(r_data, id, name, scale) {
+function barchart(r_data, id, name, scale, start_t, end_t) {
     var BarChart = echarts.init(document.getElementById(id));
     option = {
         title: {
             text: name,
+            subtext: "from " + start_t + " to " + end_t ,
             left: 'left',
             top: 10
+        },
+        grid: {
+            top: '25%'
         },
         toolbox: {
             feature: {
