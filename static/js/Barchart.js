@@ -2,14 +2,14 @@ $(document).ready(function () {
     $.get('http://127.0.0.1:50003/rainfall_BarChart/', function (data) {
         let value_r = [];
         for (let key in data["data"]) {
-            value_r.unshift(data["data"][key]);
+            value_r.push(data["data"][key]);
         }
         barchart(value_r, "container3", "Rainfall Chart", "mm", data["start_t"], data["end_t"])
     })
     $.get('http://127.0.0.1:50003/humidity_BarChart/', function (data) {
         let value_h = [];
         for (let key in data["data"]) {
-            value_h.unshift(data["data"][key]);
+            value_h.push(data["data"][key]);
         }
         barchart(value_h, "container4", "Humidity Chart", "%", data["start_t"], data["end_t"])
     })
@@ -116,7 +116,7 @@ function chart3_time_range(){
     $.get(query_url,function(data,status){
         let value_r = [];
         for (let key in data["data"]) {
-            value_r.unshift(data["data"][key]);
+            value_r.push(data["data"][key]);
         }
 //        barchart(value_r, "container3", "Rainfall Chart", "mm")
         barchart(value_r, "container3", "Rainfall Chart", "mm", data["start_t"], data["end_t"])
@@ -133,7 +133,7 @@ function chart4_time_range(){
     $.get(query_url,function(data,status){
         let value_h = [];
         for (let key in data["data"]) {
-            value_h.unshift(data["data"][key]);
+            value_h.push(data["data"][key]);
         }
 //        barchart(value_h, "container4", "Humidity Chart", "%")
         barchart(value_h, "container4", "Humidity Chart", "%", data["start_t"], data["end_t"])
