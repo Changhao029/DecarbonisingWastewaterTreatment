@@ -319,7 +319,9 @@ class LineChartSearchFilterBackend(BaseFilterBackend):
             print(end_time)
             del query_condition["end_time"]
             queryset = queryset.filter(sensor_datetime__range=[start_time, end_time])
+            queryset = queryset.filter(**query_condition)
             return queryset
+        queryset = queryset.filter(**query_condition)
         return queryset[0:10000]
 
 

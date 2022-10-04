@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    $.get('http://127.0.0.1:50003/rainfall_BarChart/', function (data) {
+    $.get('http://127.0.0.1:50003/rainfall_BarChart/?station=231824A', function (data) {
         let value_r = [];
         for (let key in data["data"]) {
             value_r.push(data["data"][key]);
         }
         barchart(value_r, "container3", "Rainfall Chart", "mm", data["start_t"], data["end_t"])
     })
-    $.get('http://127.0.0.1:50003/humidity_BarChart/', function (data) {
+    $.get('http://127.0.0.1:50003/humidity_BarChart/?station=231824A', function (data) {
         let value_h = [];
         for (let key in data["data"]) {
             value_h.push(data["data"][key]);
@@ -84,7 +84,7 @@ function barchart(r_data, id, name, scale, start_t, end_t) {
 }
 
 
-function create_url(start_time, end_time, interface_url){
+function create_url(start_time, end_time, station, interface_url){
     var condition_dict = new Array()
     var condition_str = ""
 
@@ -92,6 +92,7 @@ function create_url(start_time, end_time, interface_url){
         condition_dict["start_time"] = start_time
         condition_dict["end_time"] = end_time
     }
+    condition_dict["station"] = station
     for (var key in condition_dict){
         condition_str = condition_str + key + "=" + condition_dict[key] + "&"
     }
@@ -109,9 +110,12 @@ function create_url(start_time, end_time, interface_url){
 function chart3_time_range(){
     var start_time = document.getElementById("chart3_start_time").value;
     var end_time = document.getElementById("chart3_end_time").value;
-    console.log(start_time, end_time)
+    var station_select = document.getElementById("chart3_station");
+    var station_str = station_select.options[station_select.selectedIndex].value;
+    console.log(station_str)
 
-   query_url = create_url(start_time, end_time, "rainfall_BarChart")
+
+   query_url = create_url(start_time, end_time, station_str,"rainfall_BarChart")
 
     $.get(query_url,function(data,status){
         let value_r = [];
@@ -127,8 +131,10 @@ function chart3_time_range(){
 function chart4_time_range(){
     var start_time = document.getElementById("chart4_start_time").value;
     var end_time = document.getElementById("chart4_end_time").value;
-    console.log(start_time, end_time)
-    query_url = create_url(start_time, end_time, "humidity_BarChart")
+    var station_select = document.getElementById("chart4_station");
+    var station_str = station_select.options[station_select.selectedIndex].value;
+    console.log(station_str)
+    query_url = create_url(start_time, end_time, station_str, "humidity_BarChart")
 
     $.get(query_url,function(data,status){
         let value_h = [];
