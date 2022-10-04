@@ -6,7 +6,7 @@ var myChart7 = echarts.init(dom7, null, {
 
 var option7;
 
-function create_wind_rose_url(){
+function create_wind_rose_url(start_time, end_time, station, interface_url){
 
   var condition_dict = new Array()
   var condition_str = ""
@@ -15,6 +15,7 @@ function create_wind_rose_url(){
       condition_dict["start_time"] = start_time
       condition_dict["end_time"] = end_time
   }
+  condition_dict["station"] = station
   for (var key in condition_dict){
       condition_str = condition_str + key + "=" + condition_dict[key] + "&"
   }
@@ -144,7 +145,7 @@ function create_wind_rose_chart(data_result){
 }
 
 $(document).ready(function(){
-    $.get("http://127.0.0.1:50003/windrose/",function(data_result,status){
+    $.get("http://127.0.0.1:50003/windrose/?station=231824A",function(data_result,status){
       create_wind_rose_chart(data_result)
     });
 });
@@ -152,9 +153,11 @@ $(document).ready(function(){
 function chart7_time_range(){
   var start_time = document.getElementById("chart7_start_time").value;
   var end_time = document.getElementById("chart7_end_time").value;
-  console.log(start_time, end_time)
+  var station_select = document.getElementById("chart7_station");
+  var station_str = station_select.options[station_select.selectedIndex].value;
+  console.log(station_str)
 
-  query_url = create_url(start_time, end_time, "windrose")
+  query_url = create_wind_rose_url(start_time, end_time, station_str, "windrose")
 
   $.get(query_url,function(data_result,status){
     create_wind_rose_chart(data_result)
