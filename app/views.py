@@ -457,6 +457,7 @@ class WindRoseChartView(APIView):
             queryset = backend().filter_queryset(self.request, queryset, self)
         return queryset
 
+
     def get(self, request, *args, **kwargs):
         start_time = self.get_queryset()[0].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
         end_time = self.get_queryset()[len(self.get_queryset())-1].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
