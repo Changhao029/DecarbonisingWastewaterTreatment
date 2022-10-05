@@ -84,12 +84,12 @@ function create_wind_rose_chart(data_result){
           "nameLocation": "middle",
           splitArea: {
               show: true,
-              areaStyle: {
-                  color: ["rgba(0,0,0,.01)", "rgba(0,0,0,.2)"]
-              },
+//              areaStyle: {
+//                  color: ["rgba(0,0,0,.01)", "rgba(0,0,0,.2)"]
+//              },
                "width":2
-
           },
+          zlevel: 999,
       },
       "polar": {},
       "series": [{
