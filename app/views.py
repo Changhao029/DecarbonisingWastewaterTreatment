@@ -442,7 +442,8 @@ class humidity_BarChartView(APIView):
         humidity_total_result = dict()
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
-            key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            # key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            key_id = datetime.strftime(date_t, '%Y%m%d')
             h_value_id = item.get("humidity")
             if h_value_id is None:
                 h_value_id = 0
