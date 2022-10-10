@@ -15,7 +15,7 @@ from app.serializers import SensorDataSerializer, FakeSensorDataSerializer, Line
     PressureLineChartDataSerializer, SolarRadiationLineChartDataSerializer, WindRoseChartDataSerializer
 from rest_framework.filters import BaseFilterBackend
 from rest_framework.pagination import PageNumberPagination
-
+import operator
 from .utils import download_csv
 from django.http import HttpResponse
 
@@ -322,7 +322,7 @@ class LineChartSearchFilterBackend(BaseFilterBackend):
             queryset = queryset.filter(**query_condition)
             return queryset
         queryset = queryset.filter(**query_condition)
-        return queryset[0:10000]
+        return queryset[0:30000]
 
 
 @method_decorator(gzip_page, name='dispatch')
@@ -419,8 +419,12 @@ class rainfall_BarChartView(APIView):
             if key_id not in rainfall_total:
                 rainfall_total[key_id] = float(r_value_id)
             rainfall_total[key_id] += float(r_value_id)
-        # sorted(rainfall_total)
-        return Response({"data": rainfall_total, "start_t": start_time, "end_t": end_time})
+        list_rainfall_total = sorted(rainfall_total.items(), key=operator.itemgetter(0))
+        new_rainfall_total = dict()
+        for i in list_rainfall_total:
+            new_rainfall_total[i[0]] = i[1]
+        print(len(rainfall_total))
+        return Response({"data": new_rainfall_total, "start_t": start_time, "end_t": end_time})
 
 
 class humidity_BarChartView(APIView):
@@ -442,7 +446,8 @@ class humidity_BarChartView(APIView):
         humidity_total_result = dict()
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
-            key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            # key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            key_id = datetime.strftime(date_t, '%Y%m%d')
             h_value_id = item.get("humidity")
             if h_value_id is None:
                 h_value_id = 0
@@ -450,11 +455,13 @@ class humidity_BarChartView(APIView):
                 humidity_total[key_id] = [float(h_value_id), 1]
             humidity_total[key_id][0] += float(h_value_id)
             humidity_total[key_id][1] += 1
-        for k,v in humidity_total.items():
+        for k, v in humidity_total.items():
             humidity_total_result[k] = v[0]/v[1]
-        sorted(humidity_total_result)
-        # return Response(humidity_total_result)
-        return Response({"data": humidity_total_result, "start_t": start_time, "end_t": end_time})
+        list_humidity_total_result = sorted(humidity_total_result.items(), key=operator.itemgetter(0))
+        new_humidity_total_result = dict()
+        for i in list_humidity_total_result:
+            new_humidity_total_result[i[0]] = i[1]
+        return Response({"data": new_humidity_total_result, "start_t": start_time, "end_t": end_time})
 
 
 class WindRoseChartView(APIView):
