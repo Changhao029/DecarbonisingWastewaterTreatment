@@ -84,7 +84,7 @@ function barchart(r_data, id, name, scale, start_t, end_t) {
 }
 
 
-function create_url(start_time, end_time, station, interface_url){
+function create_barchart_url(start_time, end_time, station, interface_url){
     var condition_dict = new Array()
     var condition_str = ""
 
@@ -115,7 +115,7 @@ function chart3_time_range(){
     console.log(station_str)
 
 
-   query_url = create_url(start_time, end_time, station_str,"rainfall_BarChart")
+   query_url = create_barchart_url(start_time, end_time, station_str,"rainfall_BarChart")
 
     $.get(query_url,function(data,status){
         let value_r = [];
@@ -134,7 +134,7 @@ function chart4_time_range(){
     var station_select = document.getElementById("chart4_station");
     var station_str = station_select.options[station_select.selectedIndex].value;
     console.log(station_str)
-    query_url = create_url(start_time, end_time, station_str, "humidity_BarChart")
+    query_url = create_barchart_url(start_time, end_time, station_str, "humidity_BarChart")
 
     $.get(query_url,function(data,status){
         let value_h = [];
