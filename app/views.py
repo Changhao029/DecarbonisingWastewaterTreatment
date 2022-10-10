@@ -319,8 +319,10 @@ class LineChartSearchFilterBackend(BaseFilterBackend):
             print(end_time)
             del query_condition["end_time"]
             queryset = queryset.filter(sensor_datetime__range=[start_time, end_time])
+            queryset = queryset.filter(**query_condition)
             return queryset
-        return queryset[0:30000]
+        queryset = queryset.filter(**query_condition)
+        return queryset[0:10000]
 
 
 @method_decorator(gzip_page, name='dispatch')
@@ -402,21 +404,23 @@ class rainfall_BarChartView(APIView):
         return queryset
 
     def get(self, request, *arg, **kwargs):
+        start_time = self.get_queryset()[0].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        end_time = self.get_queryset()[len(self.get_queryset()) - 1].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+
         ser = BarChartDataSerializer(instance=self.get_queryset(), many=True)
         rainfall_total = dict()
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
-            key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
-            day = "{year}/{month}/{day}".format(year=date_t.year, month=date_t.month, day=date_t.day)
+            # key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
+            key_id = datetime.strftime(date_t, '%Y%m%d')
             r_value_id = item.get("rainfall")
-            if r_value_id is None:
+            if not r_value_id:
                 r_value_id = 0
             if key_id not in rainfall_total:
-                rainfall_total[key_id] = [float(r_value_id), '']
-                rainfall_total[key_id][1] = day
-            rainfall_total[key_id][0] += float(r_value_id)
-        sorted(rainfall_total)
-        return Response(rainfall_total)
+                rainfall_total[key_id] = float(r_value_id)
+            rainfall_total[key_id] += float(r_value_id)
+        # sorted(rainfall_total)
+        return Response({"data": rainfall_total, "start_t": start_time, "end_t": end_time})
 
 
 class humidity_BarChartView(APIView):
@@ -430,25 +434,27 @@ class humidity_BarChartView(APIView):
         return queryset
 
     def get(self, request, *arg, **kwargs):
+        start_time = self.get_queryset()[0].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+        end_time = self.get_queryset()[len(self.get_queryset()) - 1].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
+
         ser = BarChartDataSerializer(instance=self.get_queryset(), many=True)
         humidity_total = dict()
         humidity_total_result = dict()
         for item in ser.data:
             date_t = datetime.strptime(item.get("sensor_datetime"), "%Y-%m-%dT%H:%M:%SZ")
             key_id = date_t.year * 372 + date_t.month * 31 + date_t.day
-            day = "{year}/{month}/{day}".format(year=date_t.year, month=date_t.month, day=date_t.day)
             h_value_id = item.get("humidity")
             if h_value_id is None:
                 h_value_id = 0
             if key_id not in humidity_total:
-                humidity_total[key_id] = [float(h_value_id), 1, '']
-                humidity_total[key_id][2] = day
+                humidity_total[key_id] = [float(h_value_id), 1]
             humidity_total[key_id][0] += float(h_value_id)
             humidity_total[key_id][1] += 1
         for k,v in humidity_total.items():
-            humidity_total_result[k] = [v[0]/v[1], v[2]]
+            humidity_total_result[k] = v[0]/v[1]
         sorted(humidity_total_result)
-        return Response(humidity_total_result)
+        # return Response(humidity_total_result)
+        return Response({"data": humidity_total_result, "start_t": start_time, "end_t": end_time})
 
 
 class WindRoseChartView(APIView):
@@ -460,6 +466,7 @@ class WindRoseChartView(APIView):
         for backend in list(self.filter_backends):
             queryset = backend().filter_queryset(self.request, queryset, self)
         return queryset
+
 
     def get(self, request, *args, **kwargs):
         start_time = self.get_queryset()[0].sensor_datetime.strftime("%Y-%m-%d %H:%M:%S")
