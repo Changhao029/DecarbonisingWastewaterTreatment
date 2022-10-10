@@ -28,7 +28,7 @@ There is not any parameter in the request body. However, the query conditions sh
 
 ### 6. request example
 
-![](./API_datatable.png)
+![](./markdown_pics/API_datatable.png)
 
 ### 7. response example
 ```commandline
@@ -86,7 +86,7 @@ However, the query conditions(start_time and end_time) should be in the URL.
 
 ### 6. request example
 
-![](./API_Temperature_Chart.png)
+![](./markdown_pics/API_Temperature_Chart.png)
 
 ### 7. response example
 ```commandline
@@ -213,7 +213,7 @@ However, the query conditions(start_time and end_time) should be in the URL.
 
 ### 6. request example
 
-![](./API_Wind_Speed_Chart.png)
+![](./markdown_pics/API_Wind_Speed_Chart.png)
 
 ### 7. response example
 ```commandline
@@ -336,7 +336,7 @@ However, the query conditions(start_time and end_time) should be in the URL.
 
 ### 6. request example
 
-![](./API_Pressure_Chart.png)
+![](./markdown_pics/API_Pressure_Chart.png)
 
 ### 7. response example
 ```commandline
@@ -458,7 +458,7 @@ However, the query conditions(start_time and end_time) should be in the URL.
 
 ### 6. request example
 
-![](./API_Solar_Radiation_Chart.png)
+![](./markdown_pics/API_Solar_Radiation_Chart.png)
 
 ### 7. response example
 ```commandline
@@ -577,7 +577,7 @@ However, the query conditions(start_time, end_time and station) should be in the
 
 ### 6. request example
 
-![](./API_Wind_Rose_Chart.png)
+![](./markdown_pics/API_Wind_Rose_Chart.png)
 
 ### 7. response example
 ```commandline
@@ -679,7 +679,7 @@ There is not any parameter in the request body.
 ### 6. request example
 
 
-![](./API_barchart.png)
+![](./markdown_pics/API_barchart.png)
 ### 7. response example
 ```commandline
 {
@@ -727,7 +727,7 @@ like the latter two urls in the URL part.
 ### 5. response field
 The response is a data stream as a HTTP response, and the content type is "text/csv" .
 ### 6. request example
-![](./API_download.png)
+![](./markdown_pics/API_download.png)
 ### 7. response example
 id,sensor_datetime,rainfall,rainfall_quality,temperature,temperature_quality,humidity,humidity_quality,wind_direction,wind_direction_quality,wind_speed,wind_speed_quality,pressure,pressure_quality,solar_radiation,solar_radiation_quality,station
 
