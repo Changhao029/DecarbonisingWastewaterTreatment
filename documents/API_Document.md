@@ -140,45 +140,87 @@ There is not any parameter in the request body.
 }
 ```
 
-## 3. Bar Char API(Charlie Hu 23217014) 
+## 3.Rainfall Bar Char API(Charlie Hu 23217014)
+
 ### 1. Interface description
-Return all the data required by the previous bar chart.
+
+Return all the data required by the rainfall bar chart.
+
 ### 2. URL
-http://127.0.0.1:50003/barchart/
+
+http://127.0.0.1:50003/rainfall_BarChart/
+
 ### 3. HTTP request type
+
 GET request
+
 ### 4. request parameters
+
 There is not any parameter in the request body.
+
 ### 5. response field
 
-| field    | description                  | type |
-|-----|------------------------------|------|
-| rainfail   | the rainfail of all the data | list |
-| humidity   | the humidity of all the data | list |
-	
+| field   | description                                 | type |
+|---------|---------------------------------------------|------|
+| data    | key is time, value is the sum of rainfall   | dic  |
+| start_t | start time                                  | str  |
+| end_t   | end time                                    | str  |
+
 ### 6. request example
 
+![](./API_rainfall_barchart.png)
 
-![](./API_barchart.png)
 ### 7. response example
+
 ```commandline
 {
-  "rainfall":[ 
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  ],
-  "humidity": [
-    "88.1",
-    "86.3",
-    null,
-    null,
-    "88.5",
-    "88.5",
-  ],
+    "data": {
+        "20211130": 1.0999999999999999
+    },
+    "start_t": "2021-11-30 00:00:30",
+    "end_t": "2021-11-30 16:40:00"
+}
+```
+
+## 4.Humidity Bar Char API(Charlie Hu 23217014)
+
+### 1. Interface description
+
+Return all the data required by the humidity bar chart.
+
+### 2. URL
+
+http://127.0.0.1:50005/humidity_BarChart/
+
+### 3. HTTP request type
+
+GET request
+
+### 4. request parameters
+
+There is not any parameter in the request body.
+
+### 5. response field
+
+| field   | description                               | type |
+|---------|-------------------------------------------|------|
+| data    | key is time, value is the sum of rainfall | dict |
+| start_t | start time                                | str  |
+| end_t   | end time                                  | str  |
+
+### 6. request example
+
+![](./API_humidity_barchart.png)
+
+### 7. response example
+
+```commandline
+{
+    "data": {
+        "20211130": 57.64757524247558
+    },
+    "start_t": "2021-11-30 00:00:30",
+    "end_t": "2021-11-30 16:40:00"
 }
 ```
 
