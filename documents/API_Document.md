@@ -1,6 +1,6 @@
 # API Document
 
-## 1. Data Table API(Changhao Liu 22924454)
+## 1. Data Table API
 
 ### 1. Interface description
 
@@ -36,7 +36,7 @@ There is not any parameter in the request body. However, the query conditions sh
 
 ### 6. request example
 
-![](./API_datatable.png)
+![](./markdown_pics/API_datatable.png)
 
 ### 7. response example
 
@@ -70,15 +70,263 @@ There is not any parameter in the request body. However, the query conditions sh
 
 ```
 
-## 2. Line Chart API(Changhao Liu 22924454)
-
+## 2. Temperature Line Chart API
 ### 1. Interface description
-
-Return all the data required by the previous line chart.
-
+Return all the data required by the previous Temperature line chart.
 ### 2. URL
+http://127.0.0.1:50003/temperaturelinechart/
 
-http://127.0.0.1:50003/linechart/
+http://127.0.0.1:50003/temperaturelinechart/?start_time=2021-12-05T00:00&end_time=2021-12-10T00:00
+### 3. HTTP request type
+GET request
+### 4. request parameters
+There is not any parameter in the request body. 
+However, the query conditions(start_time and end_time) should be in the URL.
+### 5. response field
+
+| field    | description          | type |
+|----------|----------------------|------|
+| station1 | the data of station1 | list |
+| station2 | the data of station2 | list |
+| station3 | the data of station3 | list |
+| station4 | the data of station4 | list |
+| station5 | the data of station5 | list |
+
+### 6. request example
+
+![](./markdown_pics/API_Temperature_Chart.png)
+
+### 7. response example
+```commandline
+{
+    "station1": [
+        [
+            1638230430000.0,
+            null,
+            "231824A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231824A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231824A"
+        ],
+        ...
+    ],
+    "station2": [
+        [
+            1638230430000.0,
+            "16.3",
+            "231825A"
+        ],
+        [
+            1638230460000.0,
+            "16.4",
+            "231825A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231825A"
+        ],
+        ...
+    ],
+    "station3": [
+        [
+            1638230430000.0,
+            "16.5",
+            "231826A"
+        ],
+        [
+            1638230460000.0,
+            "16.5",
+            "231826A"
+        ],
+        [
+            1638230490000.0,
+            "16.5",
+            "231826A"
+        ],
+        ...
+    ],
+    "station4": [
+        [
+            1638230430000.0,
+            null,
+            "231827A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231827A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231827A"
+        ],
+        [
+            1638230520000.0,
+            null,
+            "231827A"
+        ],
+        ...
+    ],
+    "station5": [
+        [
+            1638230430000.0,
+            null,
+            "231828A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231828A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231828A"
+        ],
+        ...
+    ]
+}
+```
+
+## 3. Wind Speed Line Chart API
+### 1. Interface description
+Return all the data required by the previous Wind Speed line chart.
+### 2. URL
+http://127.0.0.1:50003/windspeedlinechart/
+
+http://127.0.0.1:50003/windspeedlinechart/?start_time=2021-12-05T00:00&end_time=2021-12-10T00:00
+### 3. HTTP request type
+GET request
+### 4. request parameters
+There is not any parameter in the request body. 
+However, the query conditions(start_time and end_time) should be in the URL.
+### 5. response field
+
+| field    | description          | type |
+|----------|----------------------|------|
+| station1 | the data of station1 | list |
+| station2 | the data of station2 | list |
+| station3 | the data of station3 | list |
+| station4 | the data of station4 | list |
+| station5 | the data of station5 | list |
+
+### 6. request example
+
+![](./markdown_pics/API_Wind_Speed_Chart.png)
+
+### 7. response example
+```commandline
+{
+    "station1": [
+        [
+            1638230430000.0,
+            "5.67",
+            "231824A"
+        ],
+        [
+            1638230460000.0,
+            "5.33",
+            "231824A"
+        ],
+        [
+            1638230490000.0,
+            "5.33",
+            "231824A"
+        ],
+        ...
+    ],
+    "station2": [
+        [
+            1638230430000.0,
+            "6.30",
+            "231825A"
+        ],
+        [
+            1638230460000.0,
+            "6.50",
+            "231825A"
+        ],
+        [
+            1638230490000.0,
+            "6.57",
+            "231825A"
+        ],
+        ...
+    ],
+    "station3": [
+        [
+            1638230430000.0,
+            "9.70",
+            "231826A"
+        ],
+        [
+            1638230460000.0,
+            "9.63",
+            "231826A"
+        ],
+        [
+            1638230490000.0,
+            "9.77",
+            "231826A"
+        ],
+        ...
+    ],
+    "station4": [
+        [
+            1638230430000.0,
+            "9.10",
+            "231827A"
+        ],
+        [
+            1638230460000.0,
+            "8.00",
+            "231827A"
+        ],
+        [
+            1638230490000.0,
+            "8.90",
+            "231827A"
+        ],
+        ...
+    ],
+    "station5": [
+        [
+            1638230430000.0,
+            "8.20",
+            "231828A"
+        ],
+        [
+            1638230460000.0,
+            "8.33",
+            "231828A"
+        ],
+        [
+            1638230490000.0,
+            "8.33",
+            "231828A"
+        ],
+        ...
+    ]
+}
+```
+
+
+## 4. Pressure Line Chart API
+### 1. Interface description
+Return all the data required by the previous Pressure line chart.
+### 2. URL
+http://127.0.0.1:50003/pressurelinechart/
+
+http://127.0.0.1:50003/pressurelinechart/?start_time=2021-12-05T00:00&end_time=2021-12-10T00:00
 
 ### 3. HTTP request type
 
@@ -86,80 +334,346 @@ GET request
 
 ### 4. request parameters
 
-There is not any parameter in the request body.
+There is not any parameter in the request body. 
+However, the query conditions(start_time and end_time) should be in the URL.
 
 ### 5. response field
 
-| field           | description | type |
-|-----------------|-------------|------|
-| station         | the station of all the data            | list |
-| sensor_datetime | the sensor datetime of all the data            | list |
-| temperature                | the temperature of all the data            | list |
-| wind_speed                |  the wind speed of all the data           | list |
-| pressure                |  pressure of all the data           | list |
-| solar_radiation                |  he solar radiation of all the data           | list |
+| field    | description          | type |
+|----------|----------------------|------|
+| station1 | the data of station1 | list |
+| station2 | the data of station2 | list |
+| station3 | the data of station3 | list |
+| station4 | the data of station4 | list |
+| station5 | the data of station5 | list |
 
 ### 6. request example
 
-![](./API_linechart.png)
+![](./markdown_pics/API_Pressure_Chart.png)
 
 ### 7. response example
-
 ```commandline
 {
-  "station":[ 
-    "231824A",
-    "231828A",
-    "231826A",
-    "231827A",
-    "231825A",
-    "231827A",
-  ],
-  "sensor_datetime": [
-    1638230430000.0,
-    1638230430000.0,
-    1638230430000.0,
-    1638230430000.0,
-    1638230430000.0,
-    1638230460000.0,
-  ],
-  "temperature": [
-    null,
-    null,
-    "16.5",
-    null,
-    "16.3",
-    null,
-  ],
-  "wind_speed":[
-    "5.67",
-    "8.20",
-    "9.70",
-    "9.10",
-    "6.30",
-    "8.00",
-  ],
-  "pressure":[
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  ],
-  "solar_radiation":[
-    "-65.6",
-    "-61.6",
-    null,
-    null,
-    null,
-    null,
-  ],
+    "station1": [
+        [
+            1638230430000.0,
+            null,
+            "231824A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231824A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231824A"
+        ],
+        ...
+    ],
+    "station2": [
+        [
+            1638230430000.0,
+            null,
+            "231825A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231825A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231825A"
+        ],
+        ...
+    ],
+    "station3": [
+        [
+            1638230430000.0,
+            null,
+            "231826A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231826A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231826A"
+        ],
+        ...
+    ],
+    "station4": [
+       [
+            1638230430000.0,
+            null,
+            "231827A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231827A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231827A"
+        ],
+        ...
+    ],
+    "station5": [
+        [
+            1638230430000.0,
+            null,
+            "231828A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231828A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231828A"
+        ],
+        ...
+    ]
 }
 ```
 
-## 3.Rainfall Bar Char API(Charlie Hu 23217014)
+## 5. Solar Radiation Line Chart API
+### 1. Interface description
+Return all the data required by the previous Solar Radiation line chart.
+### 2. URL
+http://127.0.0.1:50003/solarradiationlinechart/
 
+http://127.0.0.1:50003/solarradiationlinechart/?start_time=2021-12-05T00:00&end_time=2021-12-10T00:00
+### 3. HTTP request type
+GET request
+### 4. request parameters
+There is not any parameter in the request body. 
+However, the query conditions(start_time and end_time) should be in the URL.
+### 5. response field
+
+| field    | description          | type |
+|----------|----------------------|------|
+| station1 | the data of station1 | list |
+| station2 | the data of station2 | list |
+| station3 | the data of station3 | list |
+| station4 | the data of station4 | list |
+| station5 | the data of station5 | list |
+
+### 6. request example
+
+![](./markdown_pics/API_Solar_Radiation_Chart.png)
+
+### 7. response example
+```commandline
+{
+    "station1": [
+        [
+            1638230430000.0,
+            "-65.6",
+            "231824A"
+        ],
+        [
+            1638230460000.0,
+            "-66.6",
+            "231824A"
+        ],
+        [
+            1638230490000.0,
+            "-68.7",
+            "231824A"
+        ],
+        ...
+    ],
+    "station2": [
+       [
+            1638230430000.0,
+            null,
+            "231825A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231825A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231825A"
+        ],
+        ...
+    ],
+    "station3": [
+        [
+            1638230430000.0,
+            null,
+            "231826A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231826A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231826A"
+        ],
+        ...
+    ],
+    "station4": [
+        [
+            1638230430000.0,
+            null,
+            "231827A"
+        ],
+        [
+            1638230460000.0,
+            null,
+            "231827A"
+        ],
+        [
+            1638230490000.0,
+            null,
+            "231827A"
+        ],
+        ...
+    ],
+    "station5": [
+        [
+            1638230430000.0,
+            "-61.6",
+            "231828A"
+        ],
+        [
+            1638230460000.0,
+            "-60.7",
+            "231828A"
+        ],
+        [
+            1638230490000.0,
+            "-62.1",
+            "231828A"
+        ],
+        ...
+    ]
+}
+```
+
+## 6. Wind Rose Chart API
+### 1. Interface description
+Return all the data required by the previous Wind Rose chart.
+### 2. URL
+http://127.0.0.1:50003/windrose/
+
+http://127.0.0.1:50003/windrose/?start_time=2021-12-01T00:00&end_time=2021-12-06T00:00&station=231825A
+### 3. HTTP request type
+GET request
+### 4. request parameters
+There is not any parameter in the request body. 
+However, the query conditions(start_time, end_time and station) should be in the URL.### 5. response field
+
+| field | description                      | type |
+|-------|----------------------------------|------|
+| data | the data for the wind rose chart | list |
+| start_time | the start time of the data       | list |
+| end_time | the end time of the data         | list |
+
+### 6. request example
+
+![](./markdown_pics/API_Wind_Rose_Chart.png)
+
+### 7. response example
+```commandline
+{
+    "data": {
+        "0": [
+            0.02,
+            0.02,
+            0.01,
+            0.01,
+            0.0,
+            0.03,
+            0.02,
+            0.03
+        ],
+        "1": [
+            0.44,
+            0.35,
+            0.1,
+            0.05,
+            0.05,
+            0.18,
+            0.13,
+            0.23
+        ],
+        "2": [
+            2.75,
+            1.29,
+            0.32,
+            0.27,
+            0.38,
+            0.44,
+            0.6,
+            2.11
+        ],
+        "3": [
+            5.06,
+            2.07,
+            0.52,
+            0.91,
+            1.3,
+            1.09,
+            0.75,
+            3.22
+        ],
+        "4": [
+            2.51,
+            3.35,
+            1.78,
+            1.31,
+            1.32,
+            1.6,
+            1.1,
+            1.93
+        ],
+        "5": [
+            1.04,
+            4.12,
+            4.43,
+            1.36,
+            1.32,
+            1.01,
+            0.88,
+            0.86
+        ],
+        "6": [
+            6.78,
+            6.34,
+            18.44,
+            4.04,
+            1.52,
+            0.7,
+            1.34,
+            3.75
+        ]
+    },
+    "start_time": "2021-11-30 00:00:30",
+    "end_time": "2021-12-02 02:00:00"
+}
+```
+
+
+## 7. Rainfall BarChart API
 ### 1. Interface description
 
 Return all the data required by the rainfall bar chart.
@@ -186,8 +700,9 @@ There is not any parameter in the request body.
 
 ### 6. request example
 
-![](./API_rainfall_barchart.png)
+![](markdown_pics/API_rainfall_barchart.png)
 
+![](./markdown_pics/API_barchart.png)
 ### 7. response example
 
 ```commandline
@@ -200,7 +715,53 @@ There is not any parameter in the request body.
 }
 ```
 
-## 4.Humidity Bar Char API(Charlie Hu 23217014)
+
+## 8.Humidity BarChart API
+
+### 1. Interface description
+
+Return all the data required by the humidity bar chart.
+
+### 2. URL
+
+http://127.0.0.1:50005/humidity_BarChart/
+
+### 3. HTTP request type
+
+GET request
+
+### 4. request parameters
+
+There is not any parameter in the request body.
+
+### 5. response field
+
+| field   | description                               | type |
+|---------|-------------------------------------------|------|
+| data    | key is time, value is the sum of rainfall | dict |
+| start_t | start time                                | str  |
+| end_t   | end time                                  | str  |
+
+### 6. request example
+
+![](markdown_pics/API_humidity_barchart.png)
+
+
+### 7. response example
+
+```commandline
+{
+    "data": {
+
+        "20211130": 57.64757524247558
+
+    },
+    "start_t": "2021-11-30 00:00:30",
+    "end_t": "2021-11-30 16:40:00"
+}
+```
+
+## 9. Download API
 
 ### 1. Interface description
 
@@ -278,7 +839,7 @@ The response is a data stream as a HTTP response, and the content type is "text/
 
 ### 6. request example
 
-![](./API_download.png)
+![](./markdown_pics/API_download.png)
 
 ### 7. response example
 
