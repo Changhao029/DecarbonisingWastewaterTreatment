@@ -556,8 +556,6 @@ However, the query conditions(start_time and end_time) should be in the URL.
 }
 ```
 
-## 3.Rainfall Bar Char API(Charlie Hu 23217014)
-
 ## 6. Wind Rose Chart API
 ### 1. Interface description
 Return all the data required by the previous Wind Rose chart.
@@ -662,7 +660,7 @@ However, the query conditions(start_time, end_time and station) should be in the
 ```
 
 
-## 3. Bar Char API
+## 7. Rainfall BarChart API
 ### 1. Interface description
 
 Return all the data required by the rainfall bar chart.
@@ -689,7 +687,7 @@ There is not any parameter in the request body.
 
 ### 6. request example
 
-![](./API_rainfall_barchart.png)
+![](markdown_pics/API_rainfall_barchart.png)
 
 ![](./markdown_pics/API_barchart.png)
 ### 7. response example
@@ -704,7 +702,7 @@ There is not any parameter in the request body.
 }
 ```
 
-## 4.Humidity Bar Char API(Charlie Hu 23217014)
+## 8.Humidity BarChart API
 
 ### 1. Interface description
 
@@ -732,7 +730,7 @@ There is not any parameter in the request body.
 
 ### 6. request example
 
-![](./API_humidity_barchart.png)
+![](markdown_pics/API_humidity_barchart.png)
 
 ### 7. response example
 
@@ -746,7 +744,7 @@ There is not any parameter in the request body.
 }
 ```
 
-## 4. Download API
+## 9. Download API
 ### 1. Interface description
 Download the data as a CSV file. It supports the downlaod of all data, 
 as well as the data queried by condition. The query conditions should be included in the url. 
