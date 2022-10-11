@@ -1,9 +1,14 @@
 # API Document
+
 ## 1. Data Table API
+
 ### 1. Interface description
+
 First, all data is returned in the form of pages, each page has 200 pieces of data.
 Second, query the data by the id and the station name, and return the query result with paginiation.
+
 ### 2. URL
+
 http://127.0.0.1:50003/datatable/?page=1
 
 http://127.0.0.1:50003/datatable/
@@ -13,9 +18,13 @@ http://127.0.0.1:50003/datatable/?page=1&id=1
 http://127.0.0.1:50003/datatable/?page=1&id=1&station=231825A
 
 ### 3. HTTP request type
+
 GET request
+
 ### 4. request parameters
+
 There is not any parameter in the request body. However, the query conditions should be in the URL.
+
 ### 5. response field
 
 | field    | description    | type   |
@@ -25,12 +34,12 @@ There is not any parameter in the request body. However, the query conditions sh
 | previous | the previous page URL    | string |
 | results  |   the response data from the database  | list   |
 
-
 ### 6. request example
 
 ![](./markdown_pics/API_datatable.png)
 
 ### 7. response example
+
 ```commandline
 {
     "count": 1,
@@ -60,7 +69,6 @@ There is not any parameter in the request body. However, the query conditions sh
 }
 
 ```
-
 
 ## 2. Temperature Line Chart API
 ### 1. Interface description
@@ -319,11 +327,16 @@ Return all the data required by the previous Pressure line chart.
 http://127.0.0.1:50003/pressurelinechart/
 
 http://127.0.0.1:50003/pressurelinechart/?start_time=2021-12-05T00:00&end_time=2021-12-10T00:00
+
 ### 3. HTTP request type
+
 GET request
+
 ### 4. request parameters
+
 There is not any parameter in the request body. 
 However, the query conditions(start_time and end_time) should be in the URL.
+
 ### 5. response field
 
 | field    | description          | type |
@@ -702,6 +715,7 @@ There is not any parameter in the request body.
 }
 ```
 
+
 ## 8.Humidity BarChart API
 
 ### 1. Interface description
@@ -732,6 +746,51 @@ There is not any parameter in the request body.
 
 ![](markdown_pics/API_humidity_barchart.png)
 
+
+### 7. response example
+
+```commandline
+{
+    "data": {
+
+        "20211130": 57.64757524247558
+
+    },
+    "start_t": "2021-11-30 00:00:30",
+    "end_t": "2021-11-30 16:40:00"
+}
+```
+
+## 9. Download API
+
+### 1. Interface description
+
+Return all the data required by the humidity bar chart.
+
+### 2. URL
+
+http://127.0.0.1:50005/humidity_BarChart/
+
+### 3. HTTP request type
+
+GET request
+
+### 4. request parameters
+
+There is not any parameter in the request body.
+
+### 5. response field
+
+| field   | description                               | type |
+|---------|-------------------------------------------|------|
+| data    | key is time, value is the sum of rainfall | dict |
+| start_t | start time                                | str  |
+| end_t   | end time                                  | str  |
+
+### 6. request example
+
+![](./API_humidity_barchart.png)
+
 ### 7. response example
 
 ```commandline
@@ -744,33 +803,46 @@ There is not any parameter in the request body.
 }
 ```
 
-## 9. Download API
+## 5. Download API(Yinuo Zhao 23112901)
+
 ### 1. Interface description
-Download the data as a CSV file. It supports the downlaod of all data, 
-as well as the data queried by condition. The query conditions should be included in the url. 
+
+Download the data as a CSV file. It supports the downlaod of all data,
+as well as the data queried by condition. The query conditions should be included in the url.
+
 ### 2. URL
-Download all:  
 
-http://127.0.0.1:50003/download/ 
+Download all:
 
-Download the data with query condition id:  
+http://127.0.0.1:50003/download/
 
-http://127.0.0.1:50003/datatable/?id=1 
+Download the data with query condition id:
 
-Download the data with query condition station:  
+http://127.0.0.1:50003/datatable/?id=1
 
-http://127.0.0.1:50003/datatable/?station=231825A 
+Download the data with query condition station:
+
+http://127.0.0.1:50003/datatable/?station=231825A
 
 ### 3. HTTP request type
+
 GET request
+
 ### 4. request parameters
-There is not any parameter in the request body. However, the query conditions should be in the URL, 
-like the latter two urls in the URL part. 
+
+There is not any parameter in the request body. However, the query conditions should be in the URL,
+like the latter two urls in the URL part.
+
 ### 5. response field
+
 The response is a data stream as a HTTP response, and the content type is "text/csv" .
+
 ### 6. request example
+
 ![](./markdown_pics/API_download.png)
+
 ### 7. response example
+
 id,sensor_datetime,rainfall,rainfall_quality,temperature,temperature_quality,humidity,humidity_quality,wind_direction,wind_direction_quality,wind_speed,wind_speed_quality,pressure,pressure_quality,solar_radiation,solar_radiation_quality,station
 
 1,2021-11-30 00:00:30+00:00,,,16.3,1,88.1,147,274,1,6.30,1,,,,,231825A
