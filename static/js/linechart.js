@@ -24,7 +24,7 @@ var option2;
 var option5;
 var option6;
 
-function create_chart(option, myChart, name, data_result, scale, ytitle){
+function create_chart(option, myChart, name, data_result, scale, ytitle, ymin, ymax){
     option = {
         tooltip: {
             trigger: 'axis',
@@ -33,7 +33,7 @@ function create_chart(option, myChart, name, data_result, scale, ytitle){
             }
         },
         legend: {
-            data: ["231824A", "231825A", "231826A", "231827A", "231828A"]
+            data: ["115E", "15E", "55E", "85W", "Lake Borrie"]
         },
         title: {
             left: 'left',
@@ -66,6 +66,8 @@ function create_chart(option, myChart, name, data_result, scale, ytitle){
                     width:2
                 }
             },
+            min: ymin,
+            max: ymax,
         },
         dataZoom: [
             {
@@ -80,31 +82,31 @@ function create_chart(option, myChart, name, data_result, scale, ytitle){
         ],
         series: [
             {
-                name: '231824A',
+                name: '115E',
                 type: 'line',
                 symbol: 'none',
                 data: data_result["station1"]
             },
             {
-                name: '231825A',
+                name: '15E',
                 type: 'line',
                 symbol: 'none',
                 data: data_result["station2"]
             },
             {
-                name: '231826A',
+                name: '55E',
                 type: 'line',
                 symbol: 'none',
                 data: data_result["station3"]
             },
             {
-                name: '231827A',
+                name: '85W',
                 type: 'line',
                 symbol: 'none',
                 data: data_result["station4"]
             },
             {
-                name: '231828A',
+                name: 'Lake Borrie',
                 type: 'line',
                 symbol: 'none',
                 data: data_result["station5"]
@@ -128,7 +130,7 @@ $(document).ready(function(){
     });
 
     $.get("http://127.0.0.1:50003/pressurelinechart/",function(data_result,status){
-        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa", "pressure")
+        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa", "pressure", 950, 1050)
     });
 
     $.get("http://127.0.0.1:50003/solarradiationlinechart/",function(data_result,status){
@@ -189,7 +191,7 @@ function chart5_time_range(){
     query_url = create_url(start_time, end_time, "pressurelinechart")
 
     $.get(query_url,function(data_result,status){
-        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa")
+        create_chart(option5, myChart5, "Pressure Chart", data_result, "hPa", 950, 1050)
     });
 
 }
