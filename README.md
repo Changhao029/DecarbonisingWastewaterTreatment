@@ -1,5 +1,10 @@
 # DecarbonisingWastewaterTreatment Web App:
-## Description
+## Content of Table
+  - [Description](#description)
+  - [Cloud Deployment](#clouddeployment)
+  - [Local Deployment Document](#localdeployment)
+  - [Future Features to improve this project](#futurefeature)
+## Description <a name=description></a>
 This web app:
 
 Offer web-based interactive visualisations of the sensor data from WSP-based wastewater treatment plant;
@@ -7,14 +12,14 @@ Offer web-based interactive visualisations of the sensor data from WSP-based was
 Allow researcher or industry users to download data as csv file or the visualisations as png file for further analysis.
 (https://teaching.csse.uwa.edu.au/units/CITS5206/cits5206projectsoffered2022.html)
 
-## Cloud Deployment
+## Cloud Deployment <a name=clouddeployment></a>
 The current-version project has been deployed to AWS.
 
 http://my5206projectfrontend.s3.ap-southeast-2.amazonaws.com/static/data_report.html
 
 (ps: about this deployed version, the download function cannot download all data as a file because the amount of data is too large. It will be fixed in the next stage of development)
 
-## Local Deployment Document
+## Local Deployment Document <a name=localdeployment></a>
 ### 1. Install the pip3, Django, and environment
 updata the apt
 
@@ -113,7 +118,7 @@ Open another terminal and type the command:
 
 Then you can open the html page in the static directory with any browser.
 
-## Future Features to improve this project
+## Future Features to improve this project <a name=futurefeature></a>
 1. Noticed with the rainfall graph, if user select a date period to show e.g., 
 1/12 – 29-12, on the x-axis when it plots it just numbers the day from the first date, 
 rather than listing the date. Again, from a user point of view, 
