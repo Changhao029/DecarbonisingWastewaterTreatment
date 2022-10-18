@@ -103,3 +103,13 @@ Open another terminal and type the command:
 `curl -X POST 127.0.0.1:50003/fakedata/`
 
 Then you can open the html page in the static directory with any browser.
+
+## Future Features to improve this project
+1. Noticed with the rainfall graph, if user select a date period to show e.g., 
+1/12 – 29-12, on the x-axis when it plots it just numbers the day from the first date, 
+rather than listing the date. Again, from a user point of view, 
+it would be more valuable to have the date as the label on the x-axis when displaying this daily rainfall data. 
+Same thing applies for the humidity graph.
+
+2. The download function and loading every chart function can be changed to asynchronous task, 
+which can prevent the risk of timeout caused by large amount of data, and improve the user experience.
