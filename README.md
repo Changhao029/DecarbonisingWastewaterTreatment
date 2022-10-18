@@ -23,7 +23,7 @@ http://my5206projectfrontend.s3.ap-southeast-2.amazonaws.com/static/data_report.
 ### 1. Install the pip3, Django, and environment
 updata the apt
 
-`sudo apt updata `
+`sudo apt update `
 
 `sudo apt upgrade`
 
