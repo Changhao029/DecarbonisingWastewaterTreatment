@@ -1,26 +1,28 @@
 # User Manual 
-1. [How to access Data Display Page](#datadisplay)
-2. [How to access Data Visualization page](#datavisualization)<br><br>
-- [Line Charts](#linecharts)
-- [Bar Charts](#barcharts)
-- [Wind Rose Charts](#widrosecharts)
+1. [How to access Data Display Page](#datadisplay)<br>
+   a. [Data Query](#dataquery)<br>
+   b. [Data Download](#datadownload)<br>
+   c. [Pagination](#pagination)<br>
+2. [How to access Data Visualization page](#datavisualization)<br>
+   a. [Line Charts](#linecharts)<br>
+   b. [Bar Charts](#barcharts)<br>
+   c. [Wind Rose Charts](#widrosecharts)<br>
 ## Data Display page: <a name="datadisplay"></a> 
 ![](./markdown_pics/manual1.png)
 
 By clicking the blue navigation bar on the left side of the page, the user can jump to either the "data display" or "visualization page" pages.
-
+### Data Query <a name="dataquery"></a> 
 At the top of the data display page, users can input related information into the search bars to search for the data they want, 
 and user also can query the data by the time range.
 <br><br>
 The user can see the search result by clicking the "query" button, 
 and the result will be shown as a table and displayed at the centre of the page. 
 <br><br>
+### Data Download <a name="datadownload"></a> 
 In the upper right corner of the data table, there is a "download" button. 
 Users can click this button to download all the data or the query result data as a CSV file.
 <br><br>
-
-(page two)
-<br>
+### Pagination <a name="pagination"></a> 
 ![](./markdown_pics/manual2.png)<br>
 As above, we have a pagination function in our system. 
 <br><br>
