@@ -77,7 +77,16 @@ Create the database named DecarbonisingWastewaterTreatment in mysql.
 
 `create database DecarbonisingWastewaterTreatment;`
 
-### 4. Run the project
+### 4. Unit testing
+In the project root directory, run this command to entre the virtual environment:
+
+` source ./venv/bin/activate`
+
+Next, run this command to run the unit testing case:
+
+`python3 manage.py test`
+
+### 5. Run the project
 After installing the mysql and creating the database, you can run the 
 project in the virtual environment.
 
