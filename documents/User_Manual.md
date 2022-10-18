@@ -1,9 +1,9 @@
 # User Manual 
 1. [How to access Data Display Page](#datadisplay)
 2. [How to access Data Visualization page](#datavisualization)<br><br>
-    a. [Line Charts](#linecharts)<br><br>
-    b. [Bar Charts](#barcharts)<br><br>
-    c. [Wind Rose Charts](#widrosecharts)<br><br>
+- [Line Charts](#linecharts)
+- [Bar Charts](#barcharts)
+- [Wind Rose Charts](#widrosecharts)
 ## Data Display page: <a name="datadisplay"></a> 
 ![](./markdown_pics/manual1.png)
 
