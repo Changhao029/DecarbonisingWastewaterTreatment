@@ -1,6 +1,10 @@
 # User Manual 
-
-## Data Display page: 
+1. [How to access Data Display Page](#datadisplay)
+2. [How to access Data Visualization page](#datavisualization)
+    a. [Line Charts](#linecharts)
+    b. [Bar Charts](#barcharts)
+    c. [Wind Rose Charts](#widrosecharts)
+## Data Display page: <a name="datadisplay"></a> 
 ![](./markdown_pics/manual1.png)
 
 By clicking the blue navigation bar on the left side of the page, the user can jump to either the "data display" or "visualization page" pages.
@@ -24,14 +28,14 @@ There are up to 200 rows of data on one page. At the end of the data table,
 the user can click the “Previous” to return to the last page or the “Next” button to go to the next page. 
 <br><br>
 
-## Data Visualization page: 
+## Data Visualization page: <a name="datavisualization"></a>
 
 ![](./markdown_pics/manual3.png)
 At the top of the visualisation page, 
 there are seven title of all the charts that can be clicked on to jump to the corresponding chart directly.
 <br><br>
 
-### Line Charts
+### Line Charts <a name="linecharts"></a>
 ![](./markdown_pics/manual4.png)
 For the **Line charts**, the user can input the time range at the top of the bar charts 
 and click the query button to view the chart for the specific period.
@@ -43,7 +47,7 @@ The legend can be used to select which station should be displayed in the line c
 Users can also click the download button in the upper right corner of the line chart to **download** the chart as a screenshot.
 <br><br>
 
-### Bar Charts
+### Bar Charts <a name="barcharts"></a>
 ![](./markdown_pics/manual5.png)
 For the **Bar charts**, the user can input the time range at the top of the bar charts 
 and click the query button to view the chart for the specific period.
@@ -57,7 +61,7 @@ Users can also select the station to be displayed in the bar chart. The 231824A 
 Finally, users can also click the download button in the upper right corner of the bar chart to **download** the chart as a screenshot.
 <br><br>
 
-### Wind Rose Charts
+### Wind Rose Charts <a name="widrosecharts"></a>
 ![](./markdown_pics/manual6.png)
 For the **Wind Rose charts**, users can input the time range in the top of the wind rose charts
 and click the query button to view the chart for the specific period. <br><br>
