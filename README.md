@@ -24,7 +24,6 @@ The current-version project has been deployed to AWS.
 
 http://my5206projectfrontend.s3.ap-southeast-2.amazonaws.com/static/data_report.html
 
-(ps: about this deployed version, the download function cannot download all data as a file because the amount of data is too large. It will be fixed in the next stage of development)
 
 ## Local Deployment Document <a name=localdeployment></a>
 ### 1. Install the pip3, Django, and environment
