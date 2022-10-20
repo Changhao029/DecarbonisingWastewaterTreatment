@@ -4,6 +4,7 @@
   - [Cloud Deployment](#clouddeployment)
   - [Local Deployment Document](#localdeployment)
   - [Future Features to improve this project](#futurefeature)
+  - [User Manual](documents/User_Manual.md)
 ## Description <a name=description></a>
 This web app:
 
@@ -11,6 +12,11 @@ Offer web-based interactive visualisations of the sensor data from WSP-based was
 
 Allow researcher or industry users to download data as csv file or the visualisations as png file for further analysis.
 (https://teaching.csse.uwa.edu.au/units/CITS5206/cits5206projectsoffered2022.html)
+### Technical Choice
+- Python 3.8
+- Mysql
+- Django
+- Apache Echart(For data visualization)
 
 ## Cloud Deployment <a name=clouddeployment></a>
 The current-version project has been deployed to AWS.
@@ -82,16 +88,7 @@ Create the database named DecarbonisingWastewaterTreatment in mysql.
 
 `create database DecarbonisingWastewaterTreatment;`
 
-### 4. Unit testing
-In the project root directory, run this command to entre the virtual environment:
-
-` source ./venv/bin/activate`
-
-Next, run this command to run the unit testing case:
-
-`python3 manage.py test`
-
-### 5. Run the project
+### 4. Run the project
 After installing the mysql and creating the database, you can run the 
 project in the virtual environment.
 
@@ -117,6 +114,15 @@ Open another terminal and type the command:
 `curl -X POST 127.0.0.1:50003/fakedata/`
 
 Then you can open the html page in the static directory with any browser.
+
+### 5. Unit testing
+In the project root directory, run this command to entre the virtual environment:
+
+` source ./venv/bin/activate`
+
+Next, run this command to run the unit testing case:
+
+`python3 manage.py test`
 
 ## Future Features to improve this project <a name=futurefeature></a>
 1. Noticed with the rainfall graph, if user select a date period to show e.g., 
