@@ -116,8 +116,7 @@ Open another terminal and type the command:
 
 Then you can open the html page in the static directory with any browser.
 
-### 5. Unit testing
-Unit test code: https://github.com/liawmiaw/DecarbonisingWastewaterTreatment/blob/main/app/tests.py
+### 5. Run the testing
 
 In the project root directory, run this command to entre the virtual environment:
 
@@ -126,6 +125,8 @@ In the project root directory, run this command to entre the virtual environment
 Next, run this command to run the unit testing case:
 
 `python3 manage.py test`
+
+[unit test code](#app/tests.py)
 
 ## Future Features to improve this project <a name=futurefeature></a>
 1. Noticed with the rainfall graph, if user select a date period to show e.g., 
