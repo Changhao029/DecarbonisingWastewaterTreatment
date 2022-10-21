@@ -126,7 +126,7 @@ Next, run this command to run the unit testing case:
 
 `python3 manage.py test`
 
-[unit test code](#app/tests.py)
+[unit test code](app/tests.py)
 
 ## Future Features to improve this project <a name=futurefeature></a>
 1. Noticed with the rainfall graph, if user select a date period to show e.g., 
