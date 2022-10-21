@@ -14,9 +14,10 @@ Offer web-based interactive visualisations of the sensor data from WSP-based was
 Allow researcher or industry users to download data as csv file or the visualisations as png file for further analysis.
 (https://teaching.csse.uwa.edu.au/units/CITS5206/cits5206projectsoffered2022.html)
 ### Technical Choice
+- HTML + CSS + JavaScript
 - Python 3.8
 - Mysql
-- Django
+- Django Rest Framework
 - Apache Echart(For data visualization)
 
 ## Cloud Deployment <a name=clouddeployment></a>
